@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Provider, useWallet } from "@txnlab/use-wallet";
 
 // Define styles for the buttons and select
@@ -67,6 +67,7 @@ export default function Connect() {
     const { providers, activeAccount } = useWallet();
 
     const anyConnected = providers?.some(provider => provider.isConnected);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         if (activeAccount) {
@@ -79,7 +80,11 @@ export default function Connect() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Active account stored:', data);
+                    if (data.status == 'success'){
+                        window.location.href = '/home';
+                    }else{
+                        setMessage('Account is not registered to a miner');
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -139,6 +144,7 @@ export default function Connect() {
                     </div>
                 )
             ))}
+            {message && <p>{message}</p>}
         </div>
     );
 }
