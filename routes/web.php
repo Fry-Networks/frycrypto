@@ -36,6 +36,3 @@ Route::domain(env('EXPLORER_DOMAIN'))->group(function () {
         return view('explorer.index');
     });
 });
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
