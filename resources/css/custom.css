@@ -143,4 +143,10 @@ main {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    text-decoration: none;
+}
+
+.footer a{
+    color: white;
+    text-decoration: none;
 }

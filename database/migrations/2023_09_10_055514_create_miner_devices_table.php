@@ -31,6 +31,10 @@ return new class extends Migration
                 'Bandwidth BYOD',
                 'Other'
             ])->default('Other');
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+            $table->string('name')->nullable();
+            $table->string('provider_id')->nullable();
             $table->timestamps();
         });
     }

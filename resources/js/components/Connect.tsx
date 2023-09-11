@@ -68,10 +68,11 @@ export default function Connect() {
 
     const anyConnected = providers?.some(provider => provider.isConnected);
     const [message, setMessage] = useState('');
+    const [route, setRoute] = useState('#');
 
     useEffect(() => {
         if (activeAccount) {
-            fetch('/api/verify-active-account', {
+            fetch('/verify-active-account', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ export default function Connect() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status == 'success'){
-                        window.location.href = data.route;
+                        setRoute(data.route);
                     }else{
                         setMessage('Account is not registered to a miner');
                     }
@@ -112,8 +113,6 @@ export default function Connect() {
                         flexBasis: 'auto', // Each item will shrink or grow as necessary
                         marginBottom: '20px' // Add a margin to prevent items from sticking together when they wrap
                     }}>
-
-
                         <h4 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <img width={30} height={30} alt="" src={provider.metadata.icon} style={{ marginRight: '10px' }} />
                             {provider.metadata.name} {provider.isActive && "[active]"}
@@ -140,11 +139,12 @@ export default function Connect() {
 
                         {/* Show the disconnect button if the provider is connected */}
                         {provider.isConnected && <DisconnectButton provider={provider} style={elementStyle} />}
-
+                        {message && <p style={{color:'red'}}>{message}</p>}
+                        {provider.isConnected && route && <a href={route} style={{color:'green'}}>View Miner</a>}
                     </div>
                 )
             ))}
-            {message && <p>{message}</p>}
+
         </div>
     );
 }

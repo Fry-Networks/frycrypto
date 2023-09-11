@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FRY BYOD License</title>
+    <title>FRYCRYPTO</title>
     <meta name="description" content="Purchase your FRY BYOD License here!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    @vite(['resources/css/app.css','resources/css/custom.css', 'resources/js/app.js'])
+    <script src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
+    @vite(['resources/sass/app.scss','resources/css/custom.css', 'resources/js/app.js'])
 </head>
 <body>
 <main>
@@ -20,7 +21,7 @@
     </nav>
     <div class="header"></div>
     <div class="title-container">
-        <h1 class="title">BYOD License</h1>
+        <h1 class="title">@yield('page-title', 'BYOD License')</h1>
     </div>
     <div class="content-box">
         @yield('content')

@@ -13,3 +13,6 @@ import './bootstrap';
  */
 
 import './components/WalletConnector.jsx';
+
+import $ from 'jquery';
+window.$ = $;

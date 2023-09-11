@@ -1,6 +1,6 @@
 {
   "node_modules/@walletconnect/modal-ui/dist/index.js": {
-    "file": "assets/index-aa53bc2c.js",
+    "file": "assets/index-849db40c.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -20,7 +20,7 @@
     "dynamicImports": [
       "node_modules/@walletconnect/modal-ui/dist/index.js"
     ],
-    "file": "assets/app-23128125.js",
+    "file": "assets/app-00d4b769.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

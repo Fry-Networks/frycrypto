@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/verify-active-account', [\App\Http\Controllers\VerifyController::class, 'verify'])->name('verify-active-account');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
