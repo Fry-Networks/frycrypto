@@ -17,6 +17,7 @@ class MinerDeviceImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
+        if(empty($row['algorand_address'])) return null;
         return new MinerDevices([
             'email' => $row['email'] ?? '',
             'license_number' => $row['license_number'] ?? '',

@@ -76,12 +76,11 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $device = MinerDevices::findOrFail($id);
-
-        $data = $request->validate([
+        $request->validate([
             'algorand_address' => 'required|string',
         ]);
 
-        $device->update($data);
+        $device->update($request->all());
 
         return redirect()->route('minerDevices.index')->with('status', 'Device updated successfully');
     }
