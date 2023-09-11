@@ -68,7 +68,7 @@ export default function Connect() {
 
     const anyConnected = providers?.some(provider => provider.isConnected);
     const [message, setMessage] = useState('');
-    const [route, setRoute] = useState('#');
+    const [route, setRoute] = useState('');
 
     useEffect(() => {
         if (activeAccount) {
@@ -140,7 +140,22 @@ export default function Connect() {
                         {/* Show the disconnect button if the provider is connected */}
                         {provider.isConnected && <DisconnectButton provider={provider} style={elementStyle} />}
                         {message && <p style={{color:'red'}}>{message}</p>}
-                        {provider.isConnected && route && <a href={route} style={{color:'green'}}>View Miner</a>}
+                        {route && (
+                            <a
+                                href={route}
+                                style={{
+                                    color: 'white',
+                                    backgroundColor: 'green',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    textDecoration: 'none',
+                                    display: 'inline-block',
+                                    margin: '10px 0'
+                                }}
+                            >
+                                View Miner
+                            </a>
+                        )}
                     </div>
                 )
             ))}
