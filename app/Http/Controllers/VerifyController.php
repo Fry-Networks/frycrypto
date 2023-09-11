@@ -14,7 +14,7 @@ class VerifyController extends Controller
         if ($miner) {
             return response()->json([
                 'status' => 'success',
-                'message' => 'Account is verified',
+                'route' => route('verify.home'),
                 'data' => $miner
             ]);
         } else {

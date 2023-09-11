@@ -81,7 +81,7 @@ export default function Connect() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status == 'success'){
-                        window.location.href = '/home';
+                        window.location.href = data.route;
                     }else{
                         setMessage('Account is not registered to a miner');
                     }

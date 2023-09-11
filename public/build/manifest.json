@@ -1,0 +1,32 @@
+{
+  "node_modules/@walletconnect/modal-ui/dist/index.js": {
+    "file": "assets/index-aa53bc2c.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "node_modules/@walletconnect/modal-ui/dist/index.js"
+  },
+  "public/assets/images/background.png": {
+    "file": "assets/background-92eb0851.png",
+    "src": "public/assets/images/background.png"
+  },
+  "resources/css/custom.css": {
+    "file": "assets/custom-6ded9e93.css",
+    "isEntry": true,
+    "src": "resources/css/custom.css"
+  },
+  "resources/js/app.js": {
+    "dynamicImports": [
+      "node_modules/@walletconnect/modal-ui/dist/index.js"
+    ],
+    "file": "assets/app-23128125.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-71455456.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}
