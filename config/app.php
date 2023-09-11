@@ -187,4 +187,6 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'verify_domain' => env('VERIFY_DOMAIN'),
+    'explorer_domain' => env('EXPLORER_DOMAIN'),
 ];
