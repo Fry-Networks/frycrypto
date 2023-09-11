@@ -1,6 +1,6 @@
 {
   "node_modules/@walletconnect/modal-ui/dist/index.js": {
-    "file": "assets/index-849db40c.js",
+    "file": "assets/index-4bd208d5.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -12,7 +12,7 @@
     "src": "public/assets/images/background.png"
   },
   "resources/css/custom.css": {
-    "file": "assets/custom-6ded9e93.css",
+    "file": "assets/custom-242b848b.css",
     "isEntry": true,
     "src": "resources/css/custom.css"
   },
@@ -20,7 +20,7 @@
     "dynamicImports": [
       "node_modules/@walletconnect/modal-ui/dist/index.js"
     ],
-    "file": "assets/app-00d4b769.js",
+    "file": "assets/app-29f72e3a.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
