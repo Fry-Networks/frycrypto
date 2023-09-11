@@ -5,6 +5,10 @@ import inject from "@rollup/plugin-inject";
 
 export default defineConfig({
     plugins: [
+        inject({   // => that should be first under plugins array
+            $: 'jquery',
+            jQuery: 'jquery',
+        }),
         laravel({
             input: [
                 'resources/sass/app.scss',
@@ -13,11 +17,7 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-        reactRefresh(),
-        inject({   // => that should be first under plugins array
-            $: 'jquery',
-            jQuery: 'jquery',
-        }),
+        reactRefresh()
     ],
     define: {
         global: 'window',
