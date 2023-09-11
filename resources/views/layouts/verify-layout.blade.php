@@ -8,6 +8,7 @@
     <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <script src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite(['resources/sass/app.scss','resources/css/custom.css', 'resources/js/app.js'])
 </head>
 <body>

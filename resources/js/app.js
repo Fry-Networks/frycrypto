@@ -6,12 +6,11 @@
 
 import './bootstrap';
 
-import 'datatables.net-bs5';
-import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
-import '@fortawesome/fontawesome-free/css/all.css';
-
 import './components/WalletConnector.jsx';
 
-import $ from 'jquery';
-window.$ = $;
+import '@fortawesome/fontawesome-free/css/all.css';
+
+
+
+
 
