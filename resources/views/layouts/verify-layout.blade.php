@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>FRYCRYPTO</title>
-    <meta name="description" content="Purchase your FRY BYOD License here!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -22,7 +21,7 @@
     </nav>
     <div class="header"></div>
     <div class="title-container">
-        <h1 class="title">@yield('page-title', 'BYOD License')</h1>
+        <h1 class="title">@yield('page-title', 'Verify Miner')</h1>
     </div>
     <div class="content-box">
         @yield('content')
