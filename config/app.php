@@ -189,4 +189,6 @@ return [
 
     'verify_domain' => env('VERIFY_DOMAIN'),
     'explorer_domain' => env('EXPLORER_DOMAIN'),
+
+    'purestake_api_key' => env('PURESTAKE_API_KEY'),
 ];

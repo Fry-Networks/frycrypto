@@ -34,5 +34,7 @@ Route::domain(config('app.verify_domain'))->group(function () {
 Route::domain(config('app.explorer_domain'))->group(function () {
     Route::get('/', function () {
         return view('explorer.index');
-    });
+    })->name('explorer.index');
+    Route::get('/transactions', [\App\Http\Controllers\ExplorerController::class, 'transactions'])->name('explorer.transactions');
+
 });
