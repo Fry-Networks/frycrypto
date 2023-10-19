@@ -32,9 +32,9 @@ Route::domain(config('app.verify_domain'))->group(function () {
 });
 
 Route::domain(config('app.explorer_domain'))->group(function () {
-    Route::get('/', function () {
-        return view('explorer.index');
-    })->name('explorer.index');
+    Route::get('/', [\App\Http\Controllers\ExplorerController::class, 'dashboard'])->name('explorer.index');
+    Route::get('/accounts', [\App\Http\Controllers\ExplorerController::class, 'accounts'])->name('explorer.accounts');
+    Route::get('/miners', [\App\Http\Controllers\ExplorerController::class, 'miners'])->name('explorer.miners');
     Route::get('/transactions', [\App\Http\Controllers\ExplorerController::class, 'transactions'])->name('explorer.transactions');
-
+    Route::get('/blocks', [\App\Http\Controllers\ExplorerController::class, 'blocks'])->name('explorer.blocks');
 });

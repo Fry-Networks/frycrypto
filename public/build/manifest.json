@@ -43,6 +43,11 @@
     "file": "assets/background-92eb0851.png",
     "src": "public/assets/images/background.png"
   },
+  "resources/css/app.css": {
+    "file": "assets/app-c445d38c.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
   "resources/css/custom.css": {
     "file": "assets/custom-242b848b.css",
     "isEntry": true,
@@ -72,6 +77,11 @@
     "file": "assets/app-913ccffd.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/explorer.js": {
+    "file": "assets/explorer-881377bf.js",
+    "isEntry": true,
+    "src": "resources/js/explorer.js"
   },
   "resources/sass/app.scss": {
     "file": "assets/app-71455456.css",

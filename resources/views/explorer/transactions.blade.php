@@ -11,16 +11,14 @@
                                 <div class="table-responsive">
                                     <div class="form-group d-flex col-md-4  flex-nowrap align-items-center">
                                         <label for="tx_type" class="w-25">Tx Type</label>
-                                        <select class="form-control form-select border-0" style="background-color: #ececec" name="tx_type" id="tx_type">
-                                            <option>Account 1</option>
-                                            <option>Account 2</option>
-                                            <option>Account 3</option>
-                                            <option>Account 4</option>
-                                            <option>Account 5</option>
+                                        <select class="form-control form-select border-0" style="background-color: #ececec" id="type-filter">
+                                            @foreach($types as $type)
+                                                <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <hr />
-                                    <table class="table">
+                                    <table class="table" id="transactions_table">
                                         <thead>
                                         <tr>
                                             <th>Hash</th>
@@ -30,14 +28,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="text-success fw-bold">akdjfskfjskdf</td>
-                                            <td>150,401</td>
-                                            <td>
-                                                <span class="badge bg-warning px-3">TX_Report</span>
-                                            </td>
-                                            <td>1 mins 2 secs ago</td>
-                                        </tr>
+                                        @foreach($transactions as $transaction)
+                                            <tr>
+                                                <td>{{ $transaction['id'] }}</td> <!-- Hash -->
+                                                <td>{{ $transaction['confirmed-round'] }}</td> <!-- Block -->
+                                                <td><span class="badge bg-warning px-3">{{$transaction['tx-type']}}</span></td>
+                                                <td>{{formatAgeFromTimestamp($transaction['round-time'])}}</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -46,6 +44,22 @@
                     </div>
                 </div>
             </div>
-
         </div>
 @endsection
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready( function () {
+            var table = $('#transactions_table').DataTable({
+                pageLength: 25,
+            });
+
+            $('#type-filter').on('change', function () {
+                var selectedType = $(this).val();
+                table.column(2)  // Assuming the 'Type' column is the third column in the table
+                    .search(selectedType ? '^'+selectedType+'$' : '', true, false)
+                    .draw();
+            });
+        });
+    </script>
+@endpush
+

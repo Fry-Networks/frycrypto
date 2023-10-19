@@ -9,6 +9,7 @@
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
 </head>
 <body>
@@ -28,13 +29,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class='sidebar-link' href='#'>
+                    <a class='sidebar-link' href='{{route('explorer.accounts')}}'>
                         <i class="align-middle" data-feather="user"></i>
                         <span class="align-middle">Accounts</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class='sidebar-link' href='#'>
+                    <a class='sidebar-link' href='{{route('explorer.miners')}}'>
                         <i class="align-middle" data-feather="credit-card"></i>
                         <span class="align-middle">Miners</span>
                     </a>
@@ -46,7 +47,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class='sidebar-link' href='#'>
+                    <a class='sidebar-link' href='{{route('explorer.blocks')}}'>
                         <i class="align-middle" data-feather="box"></i>
                         <span class="align-middle">Blocks</span>
                     </a>
@@ -135,5 +136,7 @@
         </footer>
     </div>
 </div>
+<script type="text/javascript"  src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+@stack('scripts')
 </body>
 </html>
