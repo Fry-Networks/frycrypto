@@ -1,7 +1,7 @@
 <?php
 function formatAge($age_in_rounds): string
 {
-    $seconds_per_round = 4.5;
+    $seconds_per_round = 1;
     $age_in_seconds = $age_in_rounds * $seconds_per_round;
 
 // Convert age in seconds to other units
@@ -21,4 +21,10 @@ function formatAgeFromTimestamp($timestamp): string
     $age_in_days = floor($age_in_hours / 24);
 
     return $age_in_days . ' days ' . $age_in_hours % 24 . ' hours ' . $age_in_minutes % 60 . ' minutes';
+}
+
+
+function secretString($string): string
+{
+    return substr($string, 0, 6) . "..." . substr($string, -6);
 }

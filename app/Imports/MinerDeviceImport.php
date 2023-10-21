@@ -27,6 +27,8 @@ class MinerDeviceImport implements ToModel, WithHeadingRow
             'imei_number' => $row['imei_umber'] ?? '',
             'miner_key' => $row['miner_key'] ?? '',
             'byod_license_key' => $row['Byod License Key'] ?? '',
+            'RTSP_link' => $row['RTSP Link'] ?? '',
+            'mac' => $row['MAC'] ?? '',
             'type' => $this->type,
         ]);
     }

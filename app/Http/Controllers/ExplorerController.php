@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MinerDevices;
 use App\Services\AlgorandService;
 use Illuminate\Http\Request;
 
@@ -16,72 +17,64 @@ class ExplorerController extends Controller
 
     public function dashboard()
     {
-//        dd($this->algorand_service->fetchTransactions());
         return view('explorer.index');
     }
 
-    public function miners()
+    public function miners(Request $request)
     {
-        return view('explorer.miners');
+        $miners = MinerDevices::query();
+        if ($request->has('type')) {
+            $miners->where('type', $request->get('type'));
+        }
+        $types = MinerDevices::query()->select('type')->distinct()->pluck('type');
+        $miners = $miners->paginate(25);
+        return view('explorer.miners', compact('miners', 'types'));
+    }
+
+    public function viewMiner($id)
+    {
+        $miner = MinerDevices::query()->findOrFail($id);
+        return view('explorer.view-miner',compact('miner'));
     }
 
     public function blocks()
     {
-        $blocks = [];
-        $data = $this->algorand_service->fetchBlocks();
-        if ($data === null) return view('explorer.blocks', compact('blocks'));  // handle error
-        $blocks[] = $data['blocks'];
-        while (isset($data['next-token']) && $data['next-token'] != null) {
-            $data = $this->algorand_service->fetchBlocks(['next' => $data['next-token']]);
-            if ($data === null) break;  // stop loop on error
-            $blocks[] = $data['blocks'];
-        }
-        // Flatten the account array
-        $blocks = array_reduce($blocks, function ($carry, $item) {
-            return array_merge($carry, $item);
-        }, []);
-        dd($blocks);
-        return view('explorer.blocks', compact('blocks'));
+        $page = 'blocks';
+        return view('explorer.results-page',compact('page'));
+    }
+    public function viewBlock($id)
+    {
+        $block = $this->algorand_service->getBlock($id);
+        return view('explorer.view-block',compact('block'));
     }
 
-    public function accounts()
+    public function accounts(Request $request)
     {
-        $accounts = [];
-        $data = $this->algorand_service->fetchAccounts();
-        if ($data === null) return view('explorer.accounts', compact('accounts'));  // handle error
-        $accounts[] = $data['accounts'];
-        while (isset($data['next-token']) && $data['next-token'] != null) {
-            $data = $this->algorand_service->fetchAccounts(['next' => $data['next-token']]);
-            if ($data === null) break;  // stop loop on error
-            $accounts[] = $data['accounts'];
-        }
-        // Flatten the account array
-        $accounts = array_reduce($accounts, function ($carry, $item) {
-            return array_merge($carry, $item);
-        }, []);
-        return view('explorer.accounts', compact('accounts'));
+        $page = 'accounts';
+        return view('explorer.results-page', compact('page'));
+    }
+    public function viewAccount($id)
+    {
+        $account = $this->algorand_service->getAccount($id);
+        return view('explorer.view-account',compact('account'));
     }
 
 
-    public function transactions()
+    public function transactions(Request $request)
     {
-        $transactions = $types = [];
-        $data = $this->algorand_service->fetchTransactions();
-        if ($data === null) return view('explorer.transactions', compact('transactions', 'types'));  // handle error
-        $transactions[] = $data['transactions'];
-        while (isset($data['next-token']) && $data['next-token'] != null) {
-            $data = $this->algorand_service->fetchTransactions(['next' => $data['next-token']]);
-            if ($data === null) break;  // stop loop on error
-            $transactions[] = $data['transactions'];
-        }
-        // Flatten the account array
-        $transactions = array_reduce($transactions, function ($carry, $item) {
-            return array_merge($carry, $item);
-        }, []);
-        $types = array_unique(array_map(function ($transaction) {
-            return $transaction['tx-type'];
-        }, $transactions));
+        $page = 'transactions';
+        return view('explorer.results-page', compact('page'));
+    }
 
-        return view('explorer.transactions', compact('transactions', 'types'));
+    public function viewTransaction($id)
+    {
+        $transaction = $this->algorand_service->getTransaction($id);
+        return view('explorer.view-transaction',compact('transaction'));
+    }
+
+    public function viewMap()
+    {
+        $miners = json_encode(MinerDevices::query()->get());
+        return view('explorer.map', compact('miners'));
     }
 }

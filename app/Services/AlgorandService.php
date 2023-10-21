@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Algorand\Algorand;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -14,13 +13,13 @@ class AlgorandService
     {
         $this->client = new Client([
             'base_uri' => 'https://testnet-algorand.api.purestake.io/idx2/',
-            'headers' => ['X-API-Key' => env('PURESTAKE_API_KEY')]
+            'headers' => ['X-API-Key' => config('app.purestake_api_key')]
         ]);
     }
 
-    public function fetchBlocks($params = [])
+    public function fetchBlocks($round, $params = [])
     {
-        $response = $this->client->request('GET', 'v2/blocks', [
+        $response = $this->client->request('GET', 'v2/blocks/'.$round, [
             'query' => $params
         ]);
         return json_decode($response->getBody(), true);
@@ -44,5 +43,23 @@ class AlgorandService
         } catch (RequestException $exception) {
             return null;
         }
+    }
+
+    public function getTransaction($id)
+    {
+        $response = $this->client->request('GET', 'v2/transactions/'.$id);
+        return json_decode($response->getBody(), true);
+    }
+
+    public function getAccount($id)
+    {
+        $response = $this->client->request('GET', 'v2/accounts/'.$id);
+        return json_decode($response->getBody(), true);
+    }
+
+    public function getBlock($id)
+    {
+        $response = $this->client->request('GET', 'v2/blocks/'.$id);
+        return json_decode($response->getBody(), true);
     }
 }

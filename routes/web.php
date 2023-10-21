@@ -33,8 +33,18 @@ Route::domain(config('app.verify_domain'))->group(function () {
 
 Route::domain(config('app.explorer_domain'))->group(function () {
     Route::get('/', [\App\Http\Controllers\ExplorerController::class, 'dashboard'])->name('explorer.index');
+
+    Route::get('/map', [\App\Http\Controllers\ExplorerController::class, 'viewMap'])->name('explorer.map');
+
     Route::get('/accounts', [\App\Http\Controllers\ExplorerController::class, 'accounts'])->name('explorer.accounts');
+    Route::get('/account/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewAccount'])->name('explorer.view-account');
+
     Route::get('/miners', [\App\Http\Controllers\ExplorerController::class, 'miners'])->name('explorer.miners');
+    Route::get('/miner/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewMiner'])->name('explorer.view-miner');
+
     Route::get('/transactions', [\App\Http\Controllers\ExplorerController::class, 'transactions'])->name('explorer.transactions');
+    Route::get('/transaction/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewTransaction'])->name('explorer.view-transaction');
+
     Route::get('/blocks', [\App\Http\Controllers\ExplorerController::class, 'blocks'])->name('explorer.blocks');
+    Route::get('/block/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewBlock'])->name('explorer.view-block');
 });

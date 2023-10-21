@@ -6,11 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
+{{--    <script src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=visualization&callback=initMap"></script>--}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <!-- optional if mapbox base map is needed -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css' rel='stylesheet' />
+
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
+    <style>
+        /* Container holding the buttons */
+        .pagination-container {
+            display: flex;
+            align-items: center;
+            justify-content: right;
+        }
+
+        /* Styles for the buttons */
+        button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 10px;
+            background-color: #e6e6e6;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Highlight the middle button with green background */
+        button.active {
+            background-color: #fdd7d7; /* Green color */
+            color: #f34e00; /* White text color */
+            font-weight: bold;
+        }
+
+        /* Hover effect for buttons */
+        button:hover {
+            background-color: #cccccc;
+        }
+
+        /* Hover effect for active button */
+        button.active:hover {
+            background-color: #f4afaf; /* Darker green on hover */
+        }
+    </style>
+    <style>
+        .spinner {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .double-bounce1, .double-bounce2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #333;
+            opacity: 0.6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: bounce 2.0s infinite ease-in-out;
+        }
+
+        .double-bounce2 {
+            animation-delay: -1.0s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(0.0) }
+            50% { transform: scale(1.0) }
+        }
+    </style>
+    @stack('styles')
 </head>
 <body>
 <div class="wrapper">
@@ -22,31 +94,31 @@
                 </span>
             </a>
             <ul class="sidebar-nav">
-                <li class="sidebar-item active">
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.index')}}'>
                         <i class="align-middle" data-feather="pie-chart"></i>
                         <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.accounts' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.accounts')}}'>
                         <i class="align-middle" data-feather="user"></i>
                         <span class="align-middle">Accounts</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.miners' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.miners')}}'>
                         <i class="align-middle" data-feather="credit-card"></i>
                         <span class="align-middle">Miners</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.transactions' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.transactions')}}'>
                         <i class="align-middle" data-feather="layers"></i>
                         <span class="align-middle">Transactions</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.blocks' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.blocks')}}'>
                         <i class="align-middle" data-feather="box"></i>
                         <span class="align-middle">Blocks</span>
@@ -62,9 +134,9 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class='sidebar-link' href='#'>
+                        <a class='sidebar-link' href='{{route('explorer.map')}}'>
                             <i class="align-middle" data-feather="map"></i>
-                            <span class="align-middle">Explorer</span>
+                            <span class="align-middle">Map</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -82,26 +154,6 @@
             <a class="sidebar-toggle js-sidebar-toggle">
                 <i class="hamburger align-self-center"></i>
             </a>
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav navbar-align">
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                            <i class="align-middle" data-feather="settings"></i>
-                        </a>
-                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark">Charles Hall</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">
-                                <i class="align-middle me-1" data-feather="pie-chart"></i>
-                                Analytics
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </nav>
         <main class="content">
             @yield('content')

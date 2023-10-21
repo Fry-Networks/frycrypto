@@ -124,8 +124,6 @@ return [
 
     'key' => env('APP_KEY'),
 
-    'google_api_key' => env('GOOGLE_API_KEY'),
-
     'cipher' => 'AES-256-CBC',
 
     /*
@@ -191,4 +189,6 @@ return [
     'explorer_domain' => env('EXPLORER_DOMAIN'),
 
     'purestake_api_key' => env('PURESTAKE_API_KEY'),
+    'google_api_key' => env('GOOGLE_API_KEY'),
+    'mapbox_access_token' => env('MAPBOX_ACCESS_TOKEN'),
 ];

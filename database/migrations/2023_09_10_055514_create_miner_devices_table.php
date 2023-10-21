@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('miner_devices', function (Blueprint $table) {
             $table->id();
             $table->string('email')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
             $table->string('license_number')->nullable();
             $table->string('order_number')->nullable();
             $table->string('algorand_address');
@@ -23,18 +25,28 @@ return new class extends Migration
             $table->string('imei_number')->nullable();
             $table->enum('type', [
                 'Indoor Decibel',
-                'Indoor Decibel BYOD',
+                'Indoor Wildlife Camera',
+                'Indoor Traffic Camera',
+                'Indoor Sky Camera',
+                'Indoor Pebble',
                 'Indoor Pebble',
                 'Bandwidth Hardware',
                 'Satellite Hardware',
                 'Satellite BYOD',
                 'Bandwidth BYOD',
-                'Other'
+                'Outdoor Wildlife Camera',
+                'Outdoor Traffic Camera',
+                'Outdoor Sky Camera',
+                'Outdoor Satellite Hardware',
+                'Outdoor Decibel',
+                'Outdoor Decibel BYOD',
+                'Low End Weather Hardware',
+                'High End Weather Hardware',
+                'Other',
             ])->default('Other');
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
             $table->string('name')->nullable();
-            $table->string('provider_id')->nullable();
+            $table->string('RTSP_link')->nullable();
+            $table->string('mac')->nullable();
             $table->timestamps();
         });
     }
