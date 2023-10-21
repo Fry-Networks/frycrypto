@@ -29,7 +29,6 @@ return new class extends Migration
                 'Indoor Traffic Camera',
                 'Indoor Sky Camera',
                 'Indoor Pebble',
-                'Indoor Pebble',
                 'Bandwidth Hardware',
                 'Satellite Hardware',
                 'Satellite BYOD',
