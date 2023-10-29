@@ -1,41 +1,84 @@
-const MAPBOX_TOKEN = access_token; // Replace with your Mapbox token
+points = points.map(point => [parseFloat(point[0]), parseFloat(point[1])]);
 
-const INITIAL_VIEW_STATE = {
-    latitude: 51.505,
-    longitude: -0.09,
-    zoom: 12,
-    bearing: 0,
-    pitch: 45
-};
+const {MapboxLayer, HexagonLayer, HeatmapLayer} = deck;
 
-const data = [
-    // Sample data
-    {latitude: 51.505, longitude: -0.09, count: 3},
-    {latitude: 52.505, longitude: -0.09, count: 3},
-    {latitude: 53.505, longitude: -0.09, count: 3},
-    {latitude: 54.505, longitude: -0.09, count: 3},
-    // ... more data points
-];
+// Initialize Mapbox
+mapboxgl.accessToken = "REDACTED_ROTATE_ME";
+const explorer_map = new mapboxgl.Map({
+    container: 'explorer-map',
+    style: 'mapbox://styles/mapbox/light-v11',
+    center: [points[0][1], points[0][0]],
+    zoom:8,
+    minZoom: 6,
+});
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    placeholder: "Search location...",
+});
+console.log("Points:", points);
 
-const hexagonLayer = new HexagonLayer({
-    id: 'hexagon-layer',
-    data: data,
-    getPosition: d => [d.longitude, d.latitude],
-    radius: 250,
-    elevationScale: 4,
-    extruded: true,
-    coverage: 0.88,
+explorer_map.on('load', () => {
+    const firstLabelLayerId = getFirstSymbolLayerId();
+    addLayer('hexagon-layer', HexagonLayer, addHexagonLayerProps());
+    addLayer('heatmap-layer', HeatmapLayer, addHeatmapLayerProps());
+    registerZoomListener();
+    explorer_map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    explorer_map.addControl(geocoder, 'top-left');
 });
 
-const deck = new Deck({
-    canvas: 'map',
-    initialViewState: {
-        longitude: 67.0011,
-        latitude: 24.8607,
-        zoom: 13,
-        pitch: 0,
-        bearing: 0
-    },
-    controller: true,
-    layers: [hexagonLayer],
-});
+
+function getFirstSymbolLayerId() {
+    return explorer_map.getStyle().layers.find(layer => layer.type === 'symbol').id;
+}
+
+function addLayer(layerId, LayerType, layerProps) {
+    if (!explorer_map.getLayer(layerId)) {
+        explorer_map.addLayer(new MapboxLayer({id: layerId, type: LayerType, ...layerProps}));
+    }
+}
+
+function addHexagonLayerProps() {
+    return {
+        data: points,
+        getPosition: d => [d[1], d[0]],
+        radius: 2000,
+        pickable: true,
+        onClick: handleHexagonClick,
+        extruded: true,
+        colorRange:[
+            [228, 0, 0,200],
+        ],
+    };
+}
+
+function addHeatmapLayerProps() {
+    return {
+        data: points,
+        getPosition: d => [d[1], d[0]],
+        getWeight: 1,
+        radiusPixels: 40,
+        intensity: 1,
+        threshold: 0.03,
+    };
+}
+
+function registerZoomListener() {
+    explorer_map.on('zoomend', () => {
+        const currentZoom = explorer_map.getZoom();
+        console.log(currentZoom);
+    });
+}
+
+function removeLayer(layerId) {
+    if (explorer_map.getLayer(layerId)) {
+        explorer_map.removeLayer(layerId);
+    }
+}
+
+function handleHexagonClick(info) {
+    if (info.object) {
+        // Your existing logic here
+        // ...
+    }
+}

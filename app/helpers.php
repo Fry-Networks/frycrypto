@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\DB;
+
 function formatAge($age_in_rounds): string
 {
     $seconds_per_round = 1;
@@ -27,4 +30,26 @@ function formatAgeFromTimestamp($timestamp): string
 function secretString($string): string
 {
     return substr($string, 0, 6) . "..." . substr($string, -6);
+}
+
+
+if (! function_exists('populateLatLng')) {
+    function populateLatLng(): void
+    {
+        $devices = DB::table('miner_devices')->get();
+
+        foreach ($devices as $device) {
+            // Generate a random latitude between 49.959999 and 58.635000
+            $lat = mt_rand(49960000, 58635000) / 1000000;
+            // Generate a random longitude between -7.572167 and 1.681531
+            $lng = mt_rand(-7572167, 1681531) / 1000000;
+
+            DB::table('miner_devices')
+                ->where('id', $device->id)
+                ->update([
+                    'lat' => $lat,
+                    'lng' => $lng
+                ]);
+        }
+    }
 }

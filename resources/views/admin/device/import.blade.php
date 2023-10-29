@@ -6,9 +6,9 @@
         <form action="{{ route('minerDevices.importFile') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="file">Choose CSV File</label>
-                <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror">
-                @error('file')
+                <label for="files">Choose CSV File</label>
+                <input type="file" name="files[]" id="files" class="form-control @error('files.*') is-invalid @enderror" multiple>
+                @error('files.*')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

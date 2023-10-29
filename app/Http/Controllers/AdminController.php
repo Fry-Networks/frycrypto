@@ -12,6 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+        populateLatLng();
         $minerDevices = MinerDevices::query()->select('id', 'algorand_address', 'type', 'email')->get();
         return view('admin.device.index', compact('minerDevices'));
     }
@@ -42,29 +43,46 @@ class AdminController extends Controller
     public function importProcess(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:csv,xlsx,xls|max:2048',
+            'files.*' => 'required|mimes:csv,xlsx,xls|max:2048',
         ]);
 
-        $file = $request->file('file');
-        $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $type = str_replace(' Registration', '', $fileName);
-        $validTypes = [
-            'Indoor Decibel',
-            'Indoor Decibel BYOD',
-            'Indoor Pebble',
-            'Bandwidth Hardware',
-            'Satellite Hardware',
-            'Satellite BYOD',
-            'Bandwidth BYOD',
-            'Other'
-        ];
-        if (!in_array($type, $validTypes)) {
-            $type = 'Other';
+        $files = $request->file('files');
+
+        foreach ($files as $file) {
+            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $type = str_replace(' Registration', '', $fileName);
+
+            $validTypes = [
+                'Indoor Decibel',
+                'Indoor Wildlife Camera',
+                'Indoor Traffic Camera',
+                'Indoor Sky Camera',
+                'Indoor Pebble',
+                'Bandwidth Hardware',
+                'Satellite Hardware',
+                'Satellite BYOD',
+                'Bandwidth BYOD',
+                'Outdoor Wildlife Camera',
+                'Outdoor Traffic Camera',
+                'Outdoor Sky Camera',
+                'Outdoor Satellite Hardware',
+                'Outdoor Decibel',
+                'Outdoor Decibel BYOD',
+                'Low End Weather Hardware',
+                'High End Weather Hardware',
+                'Other'
+            ];
+
+            if (!in_array($type, $validTypes)) {
+                $type = 'Other';
+            }
+
+            Excel::import(new MinerDeviceImport($type), $file);
         }
-        Excel::import(new MinerDeviceImport($type), $file);
 
         return redirect()->route('minerDevices.index')->with('status', 'Devices imported successfully');
     }
+
 
     // Display the form for editing an existing MinerDevice
     public function edit($id)

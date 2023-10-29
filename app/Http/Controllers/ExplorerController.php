@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MinerDevices;
 use App\Services\AlgorandService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExplorerController extends Controller
 {
@@ -74,7 +75,23 @@ class ExplorerController extends Controller
 
     public function viewMap()
     {
-        $miners = json_encode(MinerDevices::query()->get());
-        return view('explorer.map', compact('miners'));
+        $locations = DB::table('miner_devices')->select('lat', 'lng')->get();
+        $points = $locations->map(function ($location) {
+            return [$location->lat, $location->lng];
+        })->toArray();
+        return view('explorer.map')->with(['points' => json_encode($points)]);
+    }
+
+    public function getHexDetails(Request $request)
+    {
+        $locations = $request->get('locations');
+        $points = json_decode($locations);
+        foreach ($points as $point) {
+            $miner = MinerDevices::query()->where('lat', $point[0])->where('lng', $point[1])->first();
+        }
+
+        $miners = MinerDevices::query()->where('hex', $hex)->get();
+        $view = view('explorer.partials.hexagon-details', compact('miners'))->render();
+        return response()->json($view);
     }
 }
