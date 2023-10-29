@@ -13,7 +13,7 @@ Route::domain(config('app.verify_domain'))->group(function () {
     });
 
 //    admin routes
-    Route::middleware(['web','auth'])->group(function (){
+    Route::middleware(['web', 'auth'])->group(function () {
         Route::get('admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('minerDevices.index');
         Route::get('admin/device/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('minerDevices.create');
         Route::get('admin/device/import', [\App\Http\Controllers\AdminController::class, 'import'])->name('minerDevices.import');
@@ -48,4 +48,8 @@ Route::domain(config('app.explorer_domain'))->group(function () {
 
     Route::get('/blocks', [\App\Http\Controllers\ExplorerController::class, 'blocks'])->name('explorer.blocks');
     Route::get('/block/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewBlock'])->name('explorer.view-block');
+
+    Route::get('/populateLocations', function () {
+        populateLatLng();
+    });
 });

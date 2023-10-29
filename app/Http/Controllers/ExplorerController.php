@@ -18,13 +18,40 @@ class ExplorerController extends Controller
 
     public function dashboard()
     {
-        return view('explorer.index');
+        $miners_count = MinerDevices::query()->count();
+        $types_count = [
+            'Indoor Decibel' => MinerDevices::query()->where('type', 'Indoor Decibel')->count(),
+            'Indoor Wildlife Camera' => MinerDevices::query()->where('type', 'Indoor Wildlife Camera')->count(),
+            'Indoor Traffic Camera' => MinerDevices::query()->where('type', 'Indoor Traffic Camera')->count(),
+            'Indoor Sky Camera' => MinerDevices::query()->where('type', 'Indoor Sky Camera')->count(),
+            'Indoor Pebble' => MinerDevices::query()->where('type', 'Indoor Pebble')->count(),
+            'Bandwidth Hardware' => MinerDevices::query()->where('type', 'Bandwidth Hardware')->count(),
+            'Satellite Hardware' => MinerDevices::query()->where('type', 'Satellite Hardware')->count(),
+            'Satellite BYOD' => MinerDevices::query()->where('type', 'Satellite BYOD')->count(),
+            'Bandwidth BYOD' => MinerDevices::query()->where('type', 'Bandwidth BYOD')->count(),
+            'Outdoor Wildlife Camera' => MinerDevices::query()->where('type', 'Outdoor Wildlife Camera')->count(),
+            'Outdoor Traffic Camera' => MinerDevices::query()->where('type', 'Outdoor Traffic Camera')->count(),
+            'Outdoor Sky Camera' => MinerDevices::query()->where('type', 'Outdoor Sky Camera')->count(),
+            'Outdoor Satellite Hardware' => MinerDevices::query()->where('type', 'Outdoor Satellite Hardware')->count(),
+            'Outdoor Decibel' => MinerDevices::query()->where('type', 'Outdoor Decibel')->count(),
+            'Outdoor Decibel BYOD' => MinerDevices::query()->where('type', 'Outdoor Decibel BYOD')->count(),
+            'Low End Weather Hardware' => MinerDevices::query()->where('type', 'Low End Weather Hardware')->count(),
+            'High End Weather Hardware' => MinerDevices::query()->where('type', 'High End Weather Hardware')->count(),
+            'Other' => MinerDevices::query()->where('type', 'Other')->count(),
+        ];
+        $verified_count = MinerDevices::query()->where('lat', '!=', null)->count();
+        $page_data = [
+            'miners_count' => $miners_count,
+            'types_count' => $types_count,
+            'verified_count' => $verified_count,
+        ];
+        return view('explorer.index')->with($page_data);
     }
 
     public function miners(Request $request)
     {
         $miners = MinerDevices::query();
-        if ($request->has('type')) {
+        if ($request->has('type') && $request->get('type') != 'all') {
             $miners->where('type', $request->get('type'));
         }
         $types = MinerDevices::query()->select('type')->distinct()->pluck('type');
@@ -35,18 +62,19 @@ class ExplorerController extends Controller
     public function viewMiner($id)
     {
         $miner = MinerDevices::query()->findOrFail($id);
-        return view('explorer.view-miner',compact('miner'));
+        return view('explorer.view-miner', compact('miner'));
     }
 
     public function blocks()
     {
         $page = 'blocks';
-        return view('explorer.results-page',compact('page'));
+        return view('explorer.results-page', compact('page'));
     }
+
     public function viewBlock($id)
     {
         $block = $this->algorand_service->getBlock($id);
-        return view('explorer.view-block',compact('block'));
+        return view('explorer.view-block', compact('block'));
     }
 
     public function accounts(Request $request)
@@ -54,10 +82,11 @@ class ExplorerController extends Controller
         $page = 'accounts';
         return view('explorer.results-page', compact('page'));
     }
+
     public function viewAccount($id)
     {
         $account = $this->algorand_service->getAccount($id);
-        return view('explorer.view-account',compact('account'));
+        return view('explorer.view-account', compact('account'));
     }
 
 
@@ -70,7 +99,7 @@ class ExplorerController extends Controller
     public function viewTransaction($id)
     {
         $transaction = $this->algorand_service->getTransaction($id);
-        return view('explorer.view-transaction',compact('transaction'));
+        return view('explorer.view-transaction', compact('transaction'));
     }
 
     public function viewMap()

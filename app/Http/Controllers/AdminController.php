@@ -12,7 +12,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        populateLatLng();
         $minerDevices = MinerDevices::query()->select('id', 'algorand_address', 'type', 'email')->get();
         return view('admin.device.index', compact('minerDevices'));
     }

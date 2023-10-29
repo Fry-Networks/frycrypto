@@ -9,16 +9,19 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <div class="form-group d-flex col-md-4  flex-nowrap align-items-center">
-                                    <label for="tx_type" class="w-25">Miner Type</label>
-                                    <select class="form-control form-select border-0" style="background-color: #ececec"
-                                            name="tx_type" id="tx_type">
-                                        <option value="">Select Type</option>
-                                        @foreach($types as $type)
-                                            <option value="{{ $type }}">{{ $type }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <form id="minerForm" method="GET" action="{{ url()->current() }}">
+                                    <div class="form-group d-flex col-md-4  flex-nowrap align-items-center">
+                                        <label for="miner_type" class="w-25">Miner Type</label>
+                                        <select class="form-control form-select border-0"
+                                                style="background-color: #ececec"
+                                                name="type" id="miner_type">
+                                            <option value="all" {{ (request()->get('type') == 'all' ? 'selected' : '') }}>Select Type</option>
+                                            @foreach($types as $type)
+                                                <option value="{{ $type }}" {{ (request()->get('type') == $type ? 'selected' : '') }}>{{ $type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </form>
                                 <hr/>
                                 <table class="table">
                                     <thead>
@@ -45,7 +48,7 @@
                                             <td>
                                                 <span class="badge bg-success px-3">Normal</span>
                                             </td>
-                                            <td>FryCrypto</td>
+                                            <td>Fry Foundation</td>
                                             <td>0.000000</td>
                                             <td>{{$miner->updated_at->diffForHumans()}}</td>
                                         </tr>
@@ -58,6 +61,13 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#miner_type').on('change', function(){
+                $('#minerForm').submit();
+            });
+        });
+    </script>
 @endsection

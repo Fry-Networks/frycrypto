@@ -97,7 +97,7 @@
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class='sidebar-brand' href='index.html'>
+            <a class='sidebar-brand' href='{{route('explorer.index')}}'>
                 <span class="align-middle d-flex justify-content-center align-items-center gap-2">
                     <img src="{{asset('assets/images/logo.png')}}" style="width: 120px" alt="">
                 </span>
@@ -127,23 +127,23 @@
                         <span class="align-middle">Transactions</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.blocks' ? 'active' : '' }}">
-                    <a class='sidebar-link' href='{{route('explorer.blocks')}}'>
-                        <i class="align-middle" data-feather="box"></i>
-                        <span class="align-middle">Blocks</span>
-                    </a>
-                </li>
+{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.blocks' ? 'active' : '' }}">--}}
+{{--                    <a class='sidebar-link' href='{{route('explorer.blocks')}}'>--}}
+{{--                        <i class="align-middle" data-feather="box"></i>--}}
+{{--                        <span class="align-middle">Blocks</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
             <div class="sidebar-cta">
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a class='sidebar-link' href='#'>
+                        <a class='sidebar-link' href='{{route('explorer.index')}}'>
                             <i class="align-middle" data-feather="home"></i>
                             <span class="align-middle">Home</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class='sidebar-link' href='{{route('explorer.map')}}'>
+                    <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">
+                        <a class='sidebar-link ' href='{{route('explorer.map')}}'>
                             <i class="align-middle" data-feather="map"></i>
                             <span class="align-middle">Map</span>
                         </a>
