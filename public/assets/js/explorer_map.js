@@ -7,7 +7,7 @@ mapboxgl.accessToken = "REDACTED_ROTATE_ME";
 const explorer_map = new mapboxgl.Map({
     container: 'explorer-map',
     style: 'mapbox://styles/mapbox/light-v11',
-    center: [points[0][1], points[0][0]],
+    center: (points && points.length > 0) ? [points[0][1], points[0][0]] : [51.5074, -0.1278],
     zoom:8,
     minZoom: 6,
 });
