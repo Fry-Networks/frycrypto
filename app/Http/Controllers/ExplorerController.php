@@ -42,6 +42,7 @@ class ExplorerController extends Controller
                 'Outdoor Wildlife Camera' => MinerDevices::query()->where('type', 'Outdoor Wildlife Camera')->count(),
                 'Outdoor Traffic Camera' => MinerDevices::query()->where('type', 'Outdoor Traffic Camera')->count(),
                 'Outdoor Sky Camera' => MinerDevices::query()->where('type', 'Outdoor Sky Camera')->count(),
+                'Other' => MinerDevices::query()->whereNotIn('type', MinerDevices::VALID_TYPES)->count(),
             ]
         ];
         $verified_count = MinerDevices::query()->where('lat', '!=', null)->count();
