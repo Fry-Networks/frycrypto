@@ -22,8 +22,7 @@
 @endsection
 @push('scripts')
     <script>
-        const accessToken = "{{env('MAPBOX_ACCESS_TOKEN')}}";
-        const hexDetailsRoute = "{{route('explorer.get-hexagon-details')}}";
+        const accessToken = "{{config('app.mapbox_access_token')}}";
         let points = @json(json_decode($points));
     </script>
     <script src="{{asset('assets/js/explorer_map.js')}}"></script>

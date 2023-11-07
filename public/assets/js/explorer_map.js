@@ -3,7 +3,7 @@ points = points.map(point => [parseFloat(point[0]), parseFloat(point[1])]);
 const {MapboxLayer, HexagonLayer, HeatmapLayer} = deck;
 
 // Initialize Mapbox
-mapboxgl.accessToken = "REDACTED_ROTATE_ME";
+mapboxgl.accessToken = accessToken;
 const explorer_map = new mapboxgl.Map({
     container: 'explorer-map',
     style: 'mapbox://styles/mapbox/light-v11',
