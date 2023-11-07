@@ -5,7 +5,7 @@
     <title>FRYCRYPTO EXPLORER</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('assets/images/logo_small.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
@@ -99,7 +99,7 @@
         <div class="sidebar-content js-simplebar">
             <a class='sidebar-brand' href='{{route('explorer.index')}}'>
                 <span class="align-middle d-flex justify-content-center align-items-center gap-2">
-                    <img src="{{asset('assets/images/logo.png')}}" style="width: 120px" alt="">
+                    <img src="{{asset('assets/images/logo_new.png')}}" style="width: 120px" alt="">
                 </span>
             </a>
             <ul class="sidebar-nav">

@@ -20,24 +20,29 @@ class ExplorerController extends Controller
     {
         $miners_count = MinerDevices::query()->count();
         $types_count = [
-            'Indoor Decibel' => MinerDevices::query()->where('type', 'Indoor Decibel')->count(),
-            'Indoor Wildlife Camera' => MinerDevices::query()->where('type', 'Indoor Wildlife Camera')->count(),
-            'Indoor Traffic Camera' => MinerDevices::query()->where('type', 'Indoor Traffic Camera')->count(),
-            'Indoor Sky Camera' => MinerDevices::query()->where('type', 'Indoor Sky Camera')->count(),
-            'Indoor Pebble' => MinerDevices::query()->where('type', 'Indoor Pebble')->count(),
-            'Bandwidth Hardware' => MinerDevices::query()->where('type', 'Bandwidth Hardware')->count(),
-            'Satellite Hardware' => MinerDevices::query()->where('type', 'Satellite Hardware')->count(),
-            'Satellite BYOD' => MinerDevices::query()->where('type', 'Satellite BYOD')->count(),
-            'Bandwidth BYOD' => MinerDevices::query()->where('type', 'Bandwidth BYOD')->count(),
-            'Outdoor Wildlife Camera' => MinerDevices::query()->where('type', 'Outdoor Wildlife Camera')->count(),
-            'Outdoor Traffic Camera' => MinerDevices::query()->where('type', 'Outdoor Traffic Camera')->count(),
-            'Outdoor Sky Camera' => MinerDevices::query()->where('type', 'Outdoor Sky Camera')->count(),
-            'Outdoor Satellite Hardware' => MinerDevices::query()->where('type', 'Outdoor Satellite Hardware')->count(),
-            'Outdoor Decibel' => MinerDevices::query()->where('type', 'Outdoor Decibel')->count(),
-            'Outdoor Decibel BYOD' => MinerDevices::query()->where('type', 'Outdoor Decibel BYOD')->count(),
-            'Low End Weather Hardware' => MinerDevices::query()->where('type', 'Low End Weather Hardware')->count(),
-            'High End Weather Hardware' => MinerDevices::query()->where('type', 'High End Weather Hardware')->count(),
-            'Other' => MinerDevices::query()->where('type', 'Other')->count(),
+            'Hardware Miners' => [
+                'Bandwidth Hardware' => MinerDevices::query()->where('type', 'Bandwidth Hardware')->count(),
+                'Satellite Hardware' => MinerDevices::query()->where('type', 'Satellite Hardware')->count(),
+                'Low End Weather Hardware' => MinerDevices::query()->where('type', 'Low End Weather Hardware')->count(),
+                'High End Weather Hardware' => MinerDevices::query()->where('type', 'High End Weather Hardware')->count(),
+                'Outdoor Satellite Hardware' => MinerDevices::query()->where('type', 'Outdoor Satellite Hardware')->count(),
+            ],
+            'Byod Miners' => [
+                'Satellite BYOD' => MinerDevices::query()->where('type', 'Satellite BYOD')->count(),
+                'Bandwidth BYOD' => MinerDevices::query()->where('type', 'Bandwidth BYOD')->count(),
+                'Outdoor Decibel BYOD' => MinerDevices::query()->where('type', 'Outdoor Decibel BYOD')->count(),
+            ],
+            'Other' => [
+                'Indoor Decibel' => MinerDevices::query()->where('type', 'Indoor Decibel')->count(),
+                'Outdoor Decibel' => MinerDevices::query()->where('type', 'Outdoor Decibel')->count(),
+                'Indoor Wildlife Camera' => MinerDevices::query()->where('type', 'Indoor Wildlife Camera')->count(),
+                'Indoor Traffic Camera' => MinerDevices::query()->where('type', 'Indoor Traffic Camera')->count(),
+                'Indoor Sky Camera' => MinerDevices::query()->where('type', 'Indoor Sky Camera')->count(),
+                'Indoor Pebble' => MinerDevices::query()->where('type', 'Indoor Pebble')->count(),
+                'Outdoor Wildlife Camera' => MinerDevices::query()->where('type', 'Outdoor Wildlife Camera')->count(),
+                'Outdoor Traffic Camera' => MinerDevices::query()->where('type', 'Outdoor Traffic Camera')->count(),
+                'Outdoor Sky Camera' => MinerDevices::query()->where('type', 'Outdoor Sky Camera')->count(),
+            ]
         ];
         $verified_count = MinerDevices::query()->where('lat', '!=', null)->count();
         $page_data = [

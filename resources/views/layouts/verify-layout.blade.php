@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>FRYCRYPTO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('assets/images/logo_small.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <script src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,7 +15,7 @@
     <nav class="nav-bar">
         <div class="logo-container">
             <img class="logo"
-                 src="{{asset('assets/images/logo.png')}}"
+                 src="{{asset('assets/images/logo_new.png')}}"
                  alt="logo">
         </div>
     </nav>
