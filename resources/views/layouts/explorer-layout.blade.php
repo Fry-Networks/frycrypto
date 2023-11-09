@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
     <script src='https://unpkg.com/deck.gl@7.3.13/dist.min.js'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
 
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
     <style>
@@ -77,11 +78,25 @@
             animation-delay: -1.0s;
         }
 
-        #explorer-map {
-            width: 100% !important;
-            height: 100% !important;
-            position: relative !important;
+        .map-style {
+            position: relative; /* This makes it the positioning context for the search box */
+            width: 100%;
+            height: 100%;
         }
+
+        #map-search {
+            position: absolute; /* Position the search box absolutely within the .map-style div */
+            top: 10px; /* Adjust as needed for your desired spacing from the top */
+            left: 10px; /* Adjust as needed for your desired spacing from the left */
+            z-index: 10; /* Ensure the search box stays on top */
+            width: 25%;
+        }
+
+        #explorer-map {
+            width: 100%; /* Make the map take the full width of its container */
+            height: 100%; /* Make the map take the full height of its container */
+        }
+
         @keyframes bounce {
             0%, 100% {
                 transform: scale(0.0)
@@ -164,7 +179,7 @@
                 <i class="hamburger align-self-center"></i>
             </a>
         </nav>
-        <main class="content">
+        <main class="{{ Route::currentRouteName() == 'explorer.map' ? 'map-style' : 'content' }}">
             @yield('content')
         </main>
         <footer class="footer">
