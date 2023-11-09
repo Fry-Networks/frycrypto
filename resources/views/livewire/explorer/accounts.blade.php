@@ -10,7 +10,7 @@
             <thead>
             <tr>
                 <th>Address</th>
-                <th>Reward(tAKRE)</th>
+                <th>Reward(FRY)</th>
                 <th>Type</th>
                 <th>Age</th>
             </tr>

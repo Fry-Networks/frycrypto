@@ -148,12 +148,12 @@
                             <span class="align-middle">Map</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class='sidebar-link' href='#'>
-                            <i class="align-middle" data-feather="file-text"></i>
-                            <span class="align-middle">Docs</span>
-                        </a>
-                    </li>
+{{--                    <li class="sidebar-item">--}}
+{{--                        <a class='sidebar-link' href='#'>--}}
+{{--                            <i class="align-middle" data-feather="file-text"></i>--}}
+{{--                            <span class="align-middle">Docs</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 </ul>
             </div>
         </div>

@@ -30,7 +30,7 @@
                                         <th>Type</th>
                                         <th>Status</th>
                                         <th>Maker</th>
-                                        <th>Reward(tAKRE)</th>
+                                        <th>Reward(FRY)</th>
                                         <th>Onboarding Time</th>
                                     </tr>
                                     </thead>
