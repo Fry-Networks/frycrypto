@@ -1,5 +1,9 @@
-points = points.map(point => [parseFloat(point[0]), parseFloat(point[1])]);
-console.log(points);
+points = points
+    .map(point => [
+        point[0] !== null ? parseFloat(point[0]) : null,
+        point[1] !== null ? parseFloat(point[1]) : null
+    ])
+    .filter(point => point[0] !== null && point[1] !== null);console.log(points);
 const {GoogleMapsOverlay} = deck;
 const mapStyle = [
     { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
