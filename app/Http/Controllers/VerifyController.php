@@ -12,26 +12,11 @@ class VerifyController extends Controller
     {
         $activeAccount = $request->input('activeAccount');
         $address = $activeAccount['address'];
-        $name = $activeAccount['name'];
-        $provider_id = $activeAccount['providerId'];
-        $activeAccount = $request->input('activeAccount');
-        $miner = MinerDevices::query()->where('algorand_address', $address)->first();
-        if ($miner) {
-            $miner->name = $name;
-            $miner->provider_id = $provider_id;
-            $miner->save();
-            $request->session()->put('miner_id', $miner->id);
-            return response()->json([
-                'status' => 'success',
-                'route' => route('verify.home'),
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Account is not verified',
-                'data' => null
-            ]);
-        }
+        session(['algo_address' => $address]);
+        return response()->json([
+            'status' => 'success',
+            'route' => route('verify.home'),
+        ]);
     }
 
     public function connectWallet()

@@ -10,7 +10,7 @@ class CheckMinerId
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->session()->has('miner_id')) {
+        if (!$request->session()->has('algo_address')) {
             return redirect()->route('verify-miner');
         }
 

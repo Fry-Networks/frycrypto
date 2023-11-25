@@ -3,82 +3,94 @@ points = points
         point[0] !== null ? parseFloat(point[0]) : null,
         point[1] !== null ? parseFloat(point[1]) : null
     ])
-    .filter(point => point[0] !== null && point[1] !== null);console.log(points);
+    .filter(point => function () {
+        if (point[0] === null || point[1] === null) {
+            return false;
+        }
+        if (isNaN(point[0]) || isNaN(point[1])) {
+            return false;
+        }
+        if (point[0] < -90 || point[0] > 90) {
+            return false;
+        }
+        return !(point[1] < -180 || point[1] > 180);
+    }());
+console.log(points);
 const {GoogleMapsOverlay} = deck;
 const mapStyle = [
-    { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
-    { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-    { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
-    { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f5f5' }] },
+    {elementType: 'geometry', stylers: [{color: '#f5f5f5'}]},
+    {elementType: 'labels.icon', stylers: [{visibility: 'off'}]},
+    {elementType: 'labels.text.fill', stylers: [{color: '#616161'}]},
+    {elementType: 'labels.text.stroke', stylers: [{color: '#f5f5f5'}]},
     {
         featureType: 'administrative.land_parcel',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#bdbdbd' }]
+        stylers: [{color: '#bdbdbd'}]
     },
     {
         featureType: 'poi',
         elementType: 'geometry',
-        stylers: [{ color: '#eeeeee' }]
+        stylers: [{color: '#eeeeee'}]
     },
     {
         featureType: 'poi',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#757575' }]
+        stylers: [{color: '#757575'}]
     },
     {
         featureType: 'poi.park',
         elementType: 'geometry',
-        stylers: [{ color: '#e5e5e5' }]
+        stylers: [{color: '#e5e5e5'}]
     },
     {
         featureType: 'poi.park',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#9e9e9e' }]
+        stylers: [{color: '#9e9e9e'}]
     },
     {
         featureType: 'road',
         elementType: 'geometry',
-        stylers: [{ color: '#ffffff' }]
+        stylers: [{color: '#ffffff'}]
     },
     {
         featureType: 'road.arterial',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#757575' }]
+        stylers: [{color: '#757575'}]
     },
     {
         featureType: 'road.highway',
         elementType: 'geometry',
-        stylers: [{ color: '#dadada' }]
+        stylers: [{color: '#dadada'}]
     },
     {
         featureType: 'road.highway',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#616161' }]
+        stylers: [{color: '#616161'}]
     },
     {
         featureType: 'road.local',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#9e9e9e' }]
+        stylers: [{color: '#9e9e9e'}]
     },
     {
         featureType: 'transit.line',
         elementType: 'geometry',
-        stylers: [{ color: '#e5e5e5' }]
+        stylers: [{color: '#e5e5e5'}]
     },
     {
         featureType: 'transit.station',
         elementType: 'geometry',
-        stylers: [{ color: '#eeeeee' }]
+        stylers: [{color: '#eeeeee'}]
     },
     {
         featureType: 'water',
         elementType: 'geometry',
-        stylers: [{ color: '#c9c9c9' }]
+        stylers: [{color: '#c9c9c9'}]
     },
     {
         featureType: 'water',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#9e9e9e' }]
+        stylers: [{color: '#9e9e9e'}]
     }
 ];
 
@@ -123,13 +135,13 @@ const input = document.getElementById('map-search');
 const searchBox = new google.maps.places.SearchBox(input);
 
 // Bias the SearchBox results towards current map's viewport.
-explorer_map.addListener('bounds_changed', function() {
+explorer_map.addListener('bounds_changed', function () {
     searchBox.setBounds(explorer_map.getBounds());
 });
 
 // Listen for the event fired when the user selects a prediction and retrieve
 // more details for that place.
-searchBox.addListener('places_changed', function() {
+searchBox.addListener('places_changed', function () {
     const places = searchBox.getPlaces();
 
     if (places.length == 0) {
@@ -138,7 +150,7 @@ searchBox.addListener('places_changed', function() {
 
     // For each place, get the icon, name and location.
     const bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
+    places.forEach(function (place) {
         if (!place.geometry) {
             console.log("Returned place contains no geometry");
             return;

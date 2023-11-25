@@ -32,7 +32,7 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "node_modules/@walletconnect/modal-ui/dist/index.js": {
-    "file": "assets/index-12ff50b6.js",
+    "file": "assets/index-bf693217.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -49,7 +49,7 @@
     "src": "resources/css/app.css"
   },
   "resources/css/custom.css": {
-    "file": "assets/custom-242b848b.css",
+    "file": "assets/custom-96e19f7d.css",
     "isEntry": true,
     "src": "resources/css/custom.css"
   },
@@ -74,7 +74,7 @@
     "dynamicImports": [
       "node_modules/@walletconnect/modal-ui/dist/index.js"
     ],
-    "file": "assets/app-93e0e691.js",
+    "file": "assets/app-75df88e6.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

@@ -46,6 +46,7 @@ function postLatLng(lat, lng) {
         url: '/save-miner-coordinates',
         type: 'POST',
         data: {
+            miner_id: minerId,
             latitude: lat,
             longitude: lng
         },

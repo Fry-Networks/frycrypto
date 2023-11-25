@@ -9,7 +9,7 @@ Route::post('/save-miner-coordinates', [HomeController::class, 'saveCoordinates'
 Route::domain(config('app.verify_domain'))->group(function () {
     Route::get('/', [\App\Http\Controllers\VerifyController::class, 'connectWallet'])->name('verify-miner');
     Route::middleware(['web', 'check_miner_id'])->group(function () {
-        Route::get('/home', [HomeController::class, 'index'])->name('verify.home');
+        Route::any('/home', [HomeController::class, 'index'])->name('verify.home');
     });
 
 //    admin routes

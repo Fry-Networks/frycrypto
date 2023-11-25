@@ -153,7 +153,7 @@ export default function Connect() {
                                     margin: '10px 0'
                                 }}
                             >
-                                View Miner
+                                Go to Dashboard
                             </a>
                         )}
                     </div>

@@ -61,9 +61,8 @@
         <div id="banner-container">
         </div>
     </div>
-
-
     <script>
+        const minerId = {{$miner->id}};
         const lat = {{$lat}};
         const lng = {{$lng}};
     </script>
