@@ -97,7 +97,7 @@ const mapStyle = [
 
 const explorer_map = new google.maps.Map(document.getElementById('explorer-map'), {
     center: (points && points.length > 0) ? {lat: points[0][0], lng: points[0][1]} : {lat: 51.5074, lng: -0.1278},
-    zoom: 6,
+    zoom: 7,
     minZoom: 3,
     maxZoom: 13,
     styles: mapStyle,
@@ -108,6 +108,7 @@ const explorer_map = new google.maps.Map(document.getElementById('explorer-map')
     }
 });
 
+
 // Create a GoogleMapsOverlay instance with deck.gl layers
 const overlay = new GoogleMapsOverlay({
     layers: [
@@ -116,8 +117,12 @@ const overlay = new GoogleMapsOverlay({
             data: points,
             getPosition: d => [d[1], d[0]],
             colorRange: [
-                [228, 0, 0, 200],
+                [228, 0, 0, 140],
             ],
+            pickable: true,
+            onClick: (info, event) => {
+                hexagonClicked(info.object);
+            },
         }),
         new deck.HeatmapLayer({
             id: 'heatmap-layer',
@@ -139,8 +144,6 @@ explorer_map.addListener('bounds_changed', function () {
     searchBox.setBounds(explorer_map.getBounds());
 });
 
-// Listen for the event fired when the user selects a prediction and retrieve
-// more details for that place.
 searchBox.addListener('places_changed', function () {
     const places = searchBox.getPlaces();
 
@@ -166,3 +169,27 @@ searchBox.addListener('places_changed', function () {
     explorer_map.fitBounds(bounds);
 });
 
+// on click of the map, get the lat and lng
+
+function hexagonClicked(object) {
+    $.ajax({
+        url: dataUrl,
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            locations: object.points,
+            index: object.index
+        },
+        success: function(data) {
+            populateAndShowModal(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching data: ' + textStatus, errorThrown);
+        }
+    });
+}
+
+function populateAndShowModal(data) {
+    $('#hexagon_content').html(data);
+    $('#hexagon_modal').modal('show');
+}

@@ -120,13 +120,17 @@ class ExplorerController extends Controller
     public function getHexDetails(Request $request)
     {
         $locations = $request->get('locations');
-        $points = json_decode($locations);
-        foreach ($points as $point) {
-            $miner = MinerDevices::query()->where('lat', $point[0])->where('lng', $point[1])->first();
+        $points = [];
+        foreach ($locations as $location) {
+            $points[] = [$location[0], $location[1]];
         }
+        $miners = [];
+        foreach ($points as $point) {
+            $miners[] = MinerDevices::query()->where('lat', $point[0])->where('lng', $point[1])->first();
+        }
+        $index = $request->get('index');
 
-        $miners = MinerDevices::query()->where('hex', $hex)->get();
-        $view = view('explorer.partials.hexagon-details', compact('miners'))->render();
+        $view = view('explorer.partials.hexagon-details', compact('miners', 'index'))->render();
         return response()->json($view);
     }
 }

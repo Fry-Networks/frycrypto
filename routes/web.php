@@ -35,7 +35,7 @@ Route::domain(config('app.explorer_domain'))->group(function () {
     Route::get('/', [\App\Http\Controllers\ExplorerController::class, 'dashboard'])->name('explorer.index');
 
     Route::get('/map', [\App\Http\Controllers\ExplorerController::class, 'viewMap'])->name('explorer.map');
-    Route::post('/get-hexagon-details', [\App\Http\Controllers\ExplorerController::class, 'getHexDetails'])->name('explorer.get-hexagon-details');
+    Route::get('/get-hexagon-details', [\App\Http\Controllers\ExplorerController::class, 'getHexDetails'])->name('explorer.get-hexagon-details');
 
     Route::get('/accounts', [\App\Http\Controllers\ExplorerController::class, 'accounts'])->name('explorer.accounts');
     Route::get('/account/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewAccount'])->name('explorer.view-account');
