@@ -180,6 +180,12 @@
         </main>
         <footer class="footer">
             <div class="container-fluid">
+                <div class="float-start">
+                    <a href="https://algonode.io/api/" target="_blank"
+                       style="font-size: 1.2em; color: #f20000; text-decoration: none">
+                        Powered by <img src="{{asset('assets/images/algonode.png')}}" style="height: 25px;" alt="">
+                    </a>
+                </div>
                 <div class="float-end">
                     <ul class="list-inline">
                         <li class="list-inline-item">

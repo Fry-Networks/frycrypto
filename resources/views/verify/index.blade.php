@@ -7,30 +7,21 @@
                 <h3 class="text-white">Miner Information</h3>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="minerName">Email:</label>
-                            <input type="text" value="{{$miner->email}}" class="form-control" placeholder="Miner Name"
-                                   readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="licenseId">Order Number:</label>
-                            <input type="text" value="{{$miner->order_number}}" class="form-control" placeholder="License ID"
-                                   readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="licenseId">License Number:</label>
-                            <input type="text" value="{{$miner->license_number}}" class="form-control" placeholder="License ID"
-                                   readonly>
-                        </div>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        @php($exclude = ['id', 'created_at', 'updated_at', 'lat', 'lng'])
+                        @foreach($miner->toArray() as $key => $value)
+                            @if(!empty($value) && !in_array($key, $exclude))
+                                <tr>
+                                    <td><strong>{{ucfirst($key)}}</strong></td>
+                                    <td>{{$value}}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Add more fields as needed -->
             </div>
         </div>
         <div class="row">
@@ -45,7 +36,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="map" class="border" style="height: 600px;"></div>
+                <div id="map" class="border" style="height: 600px; border-radius: 5px"></div>
             </div>
         </div>
         <div class="row mt-3">
