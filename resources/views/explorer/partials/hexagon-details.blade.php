@@ -8,12 +8,11 @@
         <div class="accordion" id="accordionPanelsStayOpenExample">
             @foreach($groupedMiners as $email=>$miners)
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="text-center card-title">{{$email}}</h4>
-                    </div>
                     <div class="card-body">
+                        <h4 class="text-center card-title">{{$email}}</h4>
+                        <hr>
                         @foreach($miners as $miner)
-                            <div class="accordion-item">
+                            <div class="accordion-item mb-3">
                                 <h2 class="accordion-header" id="panelsStayOpen-heading{{$loop->iteration}}">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             style="margin: 0 !important;"
