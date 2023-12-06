@@ -10,9 +10,9 @@
                 <div class="table-responsive">
                     <table class="table">
                         <tbody>
-                        @php($exclude = ['id', 'created_at', 'updated_at', 'lat', 'lng'])
+                        @php($include = ['email', 'algorand_address', 'type'])
                         @foreach($miner->toArray() as $key => $value)
-                            @if(!empty($value) && !in_array($key, $exclude))
+                            @if(!empty($value) && in_array($key, $include))
                                 <tr>
                                     <td><strong>{{ucfirst($key)}}</strong></td>
                                     <td>{{$value}}</td>

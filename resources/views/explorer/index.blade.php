@@ -3,7 +3,6 @@
 @push('styles')
     <style>
         .accordion-header{
-            margin-left: -8px;
             border-radius: 50px;
         }
 
@@ -74,6 +73,7 @@
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#{{Str::slug($type)}}"
                                     aria-expanded="true"
+                                    style="margin: 0 !important;"
                                     aria-controls="panelsStayOpen-collapseOne">
                                 {{$type}}
                             </button>

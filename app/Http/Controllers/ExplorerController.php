@@ -124,13 +124,21 @@ class ExplorerController extends Controller
         foreach ($locations as $location) {
             $points[] = [$location[0], $location[1]];
         }
-        $miners = [];
+        $miners = collect();
         foreach ($points as $point) {
-            $miners[] = MinerDevices::query()->where('lat', $point[0])->where('lng', $point[1])->first();
+            $miner = MinerDevices::query()
+                ->where('lat', $point[0])
+                ->where('lng', $point[1])
+                ->first();
+
+            if ($miner) {
+                $miners->push($miner);
+            }
         }
         $index = $request->get('index');
+        $groupedMiners = $miners->groupBy('email');
 
-        $view = view('explorer.partials.hexagon-details', compact('miners', 'index'))->render();
+        $view = view('explorer.partials.hexagon-details', compact('groupedMiners', 'index'))->render();
         return response()->json($view);
     }
 }
