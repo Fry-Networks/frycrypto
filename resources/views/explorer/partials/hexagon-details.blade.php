@@ -13,18 +13,18 @@
                         <hr>
                         @foreach($miners as $miner)
                             <div class="accordion-item mb-3">
-                                <h2 class="accordion-header" id="panelsStayOpen-heading{{$loop->iteration}}">
+                                <h2 class="accordion-header" id="panelsStayOpen-heading{{$miner->algorand_address}}-{{$loop->iteration}}">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             style="margin: 0 !important;"
-                                            data-bs-target="#panelsStayOpen-collapse{{$loop->iteration}}"
+                                            data-bs-target="#panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}"
                                             aria-expanded="false"
-                                            aria-controls="panelsStayOpen-collapse{{$loop->iteration}}">
+                                            aria-controls="panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}">
                                         Miner - {{$miner->algorand_address}}
                                     </button>
                                 </h2>
-                                <div id="panelsStayOpen-collapse{{$loop->iteration}}"
+                                <div id="panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}"
                                      class="accordion-collapse collapse"
-                                     aria-labelledby="panelsStayOpen-heading{{$loop->iteration}}">
+                                     aria-labelledby="panelsStayOpen-heading{{$miner->algorand_address}}-{{$loop->iteration}}">
                                     <div class="accordion-body">
                                         <div class="table-responsive">
                                             <table class="table">

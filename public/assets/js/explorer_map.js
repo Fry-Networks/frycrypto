@@ -15,7 +15,6 @@ points = points
         }
         return !(point[1] < -180 || point[1] > 180);
     }());
-console.log(points);
 const {GoogleMapsOverlay} = deck;
 const mapStyle = [
     {elementType: 'geometry', stylers: [{color: '#f5f5f5'}]},
