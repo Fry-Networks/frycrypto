@@ -163,8 +163,8 @@ function initExplorerMap() {
         });
         overlay.setProps({
             layers: [
-                hexagonLayer,
-                heatmapLayer
+                heatmapLayer,
+                hexagonLayer
             ]
         });
 
