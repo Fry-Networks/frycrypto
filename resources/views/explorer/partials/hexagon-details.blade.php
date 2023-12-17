@@ -9,7 +9,7 @@
             @foreach($groupedMiners as $email=>$miners)
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="text-center card-title">{{$email}}</h4>
+                        <h4 class="text-center card-title">{{$loop->iteration}}</h4>
                         <hr>
                         @foreach($miners as $miner)
                             <div class="accordion-item mb-3">
@@ -19,7 +19,7 @@
                                             data-bs-target="#panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}"
                                             aria-expanded="false"
                                             aria-controls="panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}">
-                                        Miner - {{$miner->algorand_address}}
+                                       <span class="miner-title"> Miner - {{$miner->type}}</span>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}"

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\MinerDevices;
-use App\Services\AlgorandService;
+use App\Services\AlgonodeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ExplorerController extends Controller
 {
-    protected AlgorandService $algorand_service;
+    protected AlgonodeService $algonode_service;
 
-    public function __construct(AlgorandService $algorandService)
+    public function __construct(AlgonodeService $algorandService)
     {
-        $this->algorand_service = $algorandService;
+        $this->algonode_service = $algorandService;
     }
 
     public function dashboard()
@@ -79,7 +79,7 @@ class ExplorerController extends Controller
 
     public function viewBlock($id)
     {
-        $block = $this->algorand_service->getBlock($id);
+        $block = $this->algonode_service->getBlock($id);
         return view('explorer.view-block', compact('block'));
     }
 
@@ -91,7 +91,7 @@ class ExplorerController extends Controller
 
     public function viewAccount($id)
     {
-        $account = $this->algorand_service->getAccount($id);
+        $account = $this->algonode_service->getAccount($id);
         return view('explorer.view-account', compact('account'));
     }
 
@@ -104,7 +104,7 @@ class ExplorerController extends Controller
 
     public function viewTransaction($id)
     {
-        $transaction = $this->algorand_service->getTransaction($id);
+        $transaction = $this->algonode_service->getTransaction($id);
         return view('explorer.view-transaction', compact('transaction'));
     }
 

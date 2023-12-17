@@ -2,13 +2,12 @@
 
 namespace App\Livewire\Explorer;
 
-use App\Services\AlgorandService;
-use Illuminate\Http\Request;
+use App\Services\AlgonodeService;
 use Livewire\Component;
 
 class TableComponent extends Component
 {
-    protected AlgorandService $algorand_service;
+    protected AlgonodeService $algonode_service;
     public $transactions;
     public $transactionType = 'pay';  // Default value
 
@@ -21,7 +20,7 @@ class TableComponent extends Component
 
     public function mount($type)
     {
-        $this->algorand_service = new AlgorandService();
+        $this->algonode_service = new AlgonodeService();
         $this->all_tokens = collect();
         $this->page = 1;
 
@@ -50,18 +49,18 @@ class TableComponent extends Component
     public function getTransactions($action, $type = null)
     {
         $this->transactionType = $type ?? $this->transactionType;
-        $this->algorand_service = new AlgorandService();
+        $this->algonode_service = new AlgonodeService();
         if ($action == 'next') {
-            $data = $this->algorand_service->fetchTransactions(['next' => $this->nextToken, 'limit' => $this->limit, 'tx-type' => $this->transactionType]);
+            $data = $this->algonode_service->fetchTransactions(['next' => $this->nextToken, 'limit' => $this->limit, 'tx-type' => $this->transactionType]);
             $this->all_tokens->push($data['next-token']);
             $this->page++;
         } elseif ($action == 'prev' && $this->page > 2) {
             $this->all_tokens->pop();
             $next = $this->all_tokens->last();
-            $data = $this->algorand_service->fetchTransactions(['next' => $next, 'limit' => $this->limit, 'tx-type' => $this->transactionType]);
+            $data = $this->algonode_service->fetchTransactions(['next' => $next, 'limit' => $this->limit, 'tx-type' => $this->transactionType]);
             $this->page--;
         } else {
-            $data = $this->algorand_service->fetchTransactions(['limit' => $this->limit, 'tx-type' => $this->transactionType]);
+            $data = $this->algonode_service->fetchTransactions(['limit' => $this->limit, 'tx-type' => $this->transactionType]);
             $this->all_tokens->push($data['next-token']);
             $this->page = 1;
         }
@@ -71,42 +70,47 @@ class TableComponent extends Component
 
     public function getAccounts($action)
     {
-        $this->algorand_service = new AlgorandService();
+        $this->algonode_service = new AlgonodeService();
         if ($action == 'next') {
-            $data = $this->algorand_service->fetchAccounts(['next' => $this->nextToken, 'limit' => $this->limit]);
+            $data = $this->algonode_service->fetchAccounts(['next' => $this->nextToken, 'limit' => $this->limit]);
             $this->all_tokens->push($data['next-token']);
             $this->page++;
         } elseif ($action == 'prev' && $this->page > 2) {
             $this->all_tokens->pop();
             $next = $this->all_tokens->last();
-            $data = $this->algorand_service->fetchAccounts(['next' => $next, 'limit' => $this->limit]);
+            $data = $this->algonode_service->fetchAccounts(['next' => $next, 'limit' => $this->limit]);
             $this->page--;
         } else {
-            $data = $this->algorand_service->fetchAccounts(['limit' => $this->limit]);
-            $this->all_tokens->push($data['next-token']);
+            $data = $this->algonode_service->fetchAccounts(['limit' => $this->limit]);
+            if (isset($data['next-token']))
+                $this->all_tokens->push($data['next-token']);
             $this->page = 1;
         }
-        $this->nextToken = $data['next-token'];
-        $this->accounts = $data['accounts'];
+        if (isset($data['next-token']))
+            $this->nextToken = $data['next-token'];
+        if (isset($data['accounts']))
+            $this->accounts = $data['accounts'];
+        else
+            $this->accounts = [];
     }
 
     public function getBlocks($action)
     {
-        $this->algorand_service = new AlgorandService();
+        $this->algonode_service = new AlgonodeService();
         $round = 12345;
-        $data = $this->algorand_service->fetchBlocks($round, ['next' => $this->nextToken, 'limit' => $this->limit]);
+        $data = $this->algonode_service->fetchBlocks($round, ['next' => $this->nextToken, 'limit' => $this->limit]);
         dd($data);
         if ($action == 'next') {
-            $data = $this->algorand_service->fetchBlocks(['next' => $this->nextToken, 'limit' => $this->limit], $round);
+            $data = $this->algonode_service->fetchBlocks(['next' => $this->nextToken, 'limit' => $this->limit], $round);
             $this->all_tokens->push($data['next-token']);
             $this->page++;
         } elseif ($action == 'prev' && $this->page > 2) {
             $this->all_tokens->pop();
             $next = $this->all_tokens->last();
-            $data = $this->algorand_service->fetchBlocks(['next' => $next, 'limit' => $this->limit]);
+            $data = $this->algonode_service->fetchBlocks(['next' => $next, 'limit' => $this->limit]);
             $this->page--;
         } else {
-            $data = $this->algorand_service->fetchBlocks(['limit' => $this->limit]);
+            $data = $this->algonode_service->fetchBlocks(['limit' => $this->limit]);
             dd($data);
 
             $this->all_tokens->push($data['next-token']);

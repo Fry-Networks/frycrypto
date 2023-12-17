@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FRYCRYPTO EXPLORER</title>
+    <title>FryCrypto Explorer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('assets/images/logo_small.png')}}" type="image/x-icon">
@@ -11,8 +11,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
     <script src='https://unpkg.com/deck.gl@7.3.13/dist.min.js'></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
-
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
     <style>
         /* Container holding the buttons */
@@ -214,7 +212,14 @@
         </footer>
     </div>
 </div>
+
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 @stack('scripts')
+<script>
+    window.onerror = function(message, source, lineno, colno, error) {
+        return error && error.message.includes("Cannot read properties of undefined");
+
+    };
+</script>
 </body>
 </html>

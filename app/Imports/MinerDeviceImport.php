@@ -17,12 +17,16 @@ class MinerDeviceImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        if(empty($row['algorand_address'])) return null;
+        if (empty($row['algorand_address'])) return null;
+        if (MinerDevices::query()->where('algorand_address', $row['algorand_address'])
+            ->when(isset($row['email']), function ($q) use ($row) {
+                $q->where('email', $row['email']);
+            })->exists()) return null;
         return new MinerDevices([
             'email' => $row['email'] ?? '',
             'license_number' => $row['license_number'] ?? '',
             'order_number' => $row['order_number'] ?? '',
-            'algorand_address' => $row['algorand_address'] ?? '',
+            'algorand_address' => $row['algorand_address'],
             'first_and_last_name' => $row['first_last_name'] ?? '',
             'imei_number' => $row['imei_umber'] ?? '',
             'miner_key' => $row['miner_key'] ?? '',
