@@ -115,6 +115,7 @@ function initExplorerMap() {
         styles: mapStyle,
         disableDefaultUI: true,
         zoomControl: true,
+        clickableIcons: false,
         zoomControlOptions: {
             position: google.maps.ControlPosition.RIGHT_BOTTOM
         }
