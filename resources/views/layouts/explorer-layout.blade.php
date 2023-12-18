@@ -143,7 +143,7 @@
 {{--                    </a>--}}
 {{--                </li>--}}
             </ul>
-            <div class="sidebar-cta">
+            <div class="sidebar-cta mb-5">
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
                         <a class='sidebar-link' href='{{route('explorer.index')}}'>
