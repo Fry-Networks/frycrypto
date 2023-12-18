@@ -1,4 +1,4 @@
-function initExplorerMap() {
+async function initExplorerMap() {
     points = points
         .map(point => [
             point[0] !== null ? parseFloat(point[0]) : null,
@@ -34,11 +34,6 @@ function initExplorerMap() {
         {elementType: 'labels.text.fill', stylers: [{color: '#616161'}]},
         {elementType: 'labels.text.stroke', stylers: [{color: '#f5f5f5'}]},
         {
-            featureType: 'administrative.land_parcel',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#bdbdbd'}]
-        },
-        {
             featureType: 'poi',
             elementType: 'geometry',
             stylers: [{color: '#eeeeee'}]
@@ -49,24 +44,9 @@ function initExplorerMap() {
             stylers: [{color: '#757575'}]
         },
         {
-            featureType: 'poi.park',
-            elementType: 'geometry',
-            stylers: [{color: '#e5e5e5'}]
-        },
-        {
-            featureType: 'poi.park',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#9e9e9e'}]
-        },
-        {
             featureType: 'road',
             elementType: 'geometry',
             stylers: [{color: '#ffffff'}]
-        },
-        {
-            featureType: 'road.arterial',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#757575'}]
         },
         {
             featureType: 'road.highway',
@@ -77,21 +57,6 @@ function initExplorerMap() {
             featureType: 'road.highway',
             elementType: 'labels.text.fill',
             stylers: [{color: '#616161'}]
-        },
-        {
-            featureType: 'road.local',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#9e9e9e'}]
-        },
-        {
-            featureType: 'transit.line',
-            elementType: 'geometry',
-            stylers: [{color: '#e5e5e5'}]
-        },
-        {
-            featureType: 'transit.station',
-            elementType: 'geometry',
-            stylers: [{color: '#eeeeee'}]
         },
         {
             featureType: 'water',
@@ -106,8 +71,10 @@ function initExplorerMap() {
     ];
 
     const {GoogleMapsOverlay} = deck;
+    const { Map } = await google.maps.importLibrary("maps");
 
-    const explorer_map = new google.maps.Map(document.getElementById('explorer-map'), {
+
+    const explorer_map = new Map(document.getElementById('explorer-map'), {
         zoom: savedZoom,
         center: savedCenter,
         minZoom: 3,
@@ -202,34 +169,38 @@ function initExplorerMap() {
     const input = document.getElementById('map-search');
     const searchBox = new google.maps.places.SearchBox(input);
 
+    let debounceTimer;
+
     explorer_map.addListener('bounds_changed', function () {
-        searchBox.setBounds(explorer_map.getBounds());
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            searchBox.setBounds(explorer_map.getBounds());
+        }, 500);
     });
 
     searchBox.addListener('places_changed', function () {
         const places = searchBox.getPlaces();
-
-        if (places.length == 0) {
+        if (places.length === 0) {
             return;
         }
-
-        // For each place, get the icon, name and location.
         const bounds = new google.maps.LatLngBounds();
         places.forEach(function (place) {
             if (!place.geometry) {
                 console.log("Returned place contains no geometry");
                 return;
             }
-
             if (place.geometry.viewport) {
-                // Only geocodes have viewport.
                 bounds.union(place.geometry.viewport);
             } else {
                 bounds.extend(place.geometry.location);
             }
         });
-        explorer_map.fitBounds(bounds);
+        if (!explorer_map.getBounds().contains(bounds.getNorthEast()) ||
+            !explorer_map.getBounds().contains(bounds.getSouthWest())) {
+            explorer_map.fitBounds(bounds);
+        }
     });
+
 }
 
 

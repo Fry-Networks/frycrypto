@@ -10,7 +10,7 @@
         }
 
     </style>
-    <input id="map-search" class="form-control map-search-box" type="text" placeholder="Search location...">
+{{--    <input id="map-search" class="form-control map-search-box" type="text" placeholder="Search location...">--}}
     <div id="explorer-map"></div>
     <div class="modal fade" id="hexagon_modal" tabindex="-1" aria-labelledby="modalHexagon" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" id="hexagon_content" style="opacity: 0.9"></div>
@@ -19,15 +19,22 @@
 
 @endsection
 @push('scripts')
-    <script src="https://d3js.org/d3-hexbin.v0.2.min.js"></script>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <script src="https://unpkg.com/h3-js"></script>
+
     <script>
         const accessToken = "{{config('app.mapbox_access_token')}}";
         let points = @json(json_decode($points));
         let dataUrl = '{{route('explorer.get-hexagon-details')}}';
     </script>
-    <script src="{{asset('assets/js/explorer_map.js')}}"></script>
+    <script src="{{asset('assets/js/explorer_mapbox.js')}}"></script>
 
-    <script defer
-            src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&callback=initExplorerMap&libraries=places">
-    </script>
+{{--    <script defer async--}}
+{{--            src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&callback=initExplorerMap&libraries=places">--}}
+{{--    </script>--}}
+
 @endpush

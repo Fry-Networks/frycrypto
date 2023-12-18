@@ -117,12 +117,36 @@ class ExplorerController extends Controller
         return view('explorer.map')->with(['points' => json_encode($points)]);
     }
 
+//    public function getHexDetails(Request $request)
+//    {
+//        $locations = $request->get('locations');
+//        $points = [];
+//        foreach ($locations as $location) {
+//            $points[] = [$location[0], $location[1]];
+//        }
+//        $miners = collect();
+//        foreach ($points as $point) {
+//            $miner = MinerDevices::query()
+//                ->where('lat', $point[0])
+//                ->where('lng', $point[1])
+//                ->first();
+//
+//            if ($miner) {
+//                $miners->push($miner);
+//            }
+//        }
+//        $index = $request->get('index');
+//        $groupedMiners = $miners->groupBy('email');
+//
+//        $view = view('explorer.partials.hexagon-details', compact('groupedMiners', 'index'))->render();
+//        return response()->json($view);
+//    }
     public function getHexDetails(Request $request)
     {
         $locations = $request->get('locations');
         $points = [];
         foreach ($locations as $location) {
-            $points[] = [$location[0], $location[1]];
+            $points[] = [$location['source'][0], $location['source'][1]];
         }
         $miners = collect();
         foreach ($points as $point) {

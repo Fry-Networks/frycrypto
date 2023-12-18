@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
-    <script src='https://unpkg.com/deck.gl@7.3.13/dist.min.js'></script>
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
     <style>
         /* Container holding the buttons */
