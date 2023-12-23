@@ -22,6 +22,7 @@ Route::domain(config('app.verify_domain'))->group(function () {
         Route::get('admin/device/delete/{id}', [\App\Http\Controllers\AdminController::class, 'delete'])->name('minerDevices.delete');
         Route::post('admin/device/store', [\App\Http\Controllers\AdminController::class, 'store'])->name('minerDevices.store');
         Route::patch('admin/device/update/{id}', [\App\Http\Controllers\AdminController::class, 'update'])->name('minerDevices.update');
+        Route::post('admin/update-profile', [\App\Http\Controllers\AdminController::class, 'updateProfile'])->name('admin.updateProfile');
     });
 
     Auth::routes([

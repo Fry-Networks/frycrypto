@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
         <div>
             <h1>Add Miner Device</h1>
             <form action="{{ route('minerDevices.store') }}" method="POST">
@@ -35,5 +34,4 @@
                 <button type="submit" class="btn btn-primary float-end mt-3">Create</button>
             </form>
         </div>
-    </div>
 @endsection

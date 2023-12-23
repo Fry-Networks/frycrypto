@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Imports\MinerDeviceImport;
 use App\Models\MinerDevices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -109,6 +111,24 @@ class AdminController extends Controller
         $device->delete();
 
         return redirect()->route('minerDevices.index')->with('status', 'Device deleted successfully');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6|confirmed',
+        ]);
+
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        if (!empty($validatedData['password'])) {
+            $user->password = Hash::make($validatedData['password']);
+        }
+        $user->save();
+        return back()->with('success', 'Profile updated successfully.');
     }
 
 }

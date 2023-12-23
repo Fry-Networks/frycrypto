@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
         <div>
             <h1>Edit Miner Device</h1>
             <form action="{{ route('minerDevices.update', $device->id) }}" method="POST">
@@ -36,5 +35,4 @@
                 <button type="submit" class="btn btn-primary float-end mt-3">Update</button>
             </form>
         </div>
-    </div>
 @endsection

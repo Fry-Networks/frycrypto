@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
         <h1>Import Miner Devices</h1>
         <form action="{{ route('minerDevices.importFile') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -14,5 +13,4 @@
             </div>
             <button type="submit" class="btn btn-primary float-end mt-3">Import</button>
         </form>
-    </div>
 @endsection
