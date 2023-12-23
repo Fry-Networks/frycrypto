@@ -9,22 +9,22 @@
             @foreach($groupedMiners as $email=>$miners)
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="text-center card-title">{{$loop->iteration}}</h4>
+                        <h4 class="text-center card-title">{{$mostFrequentAddresses[$email]}}</h4>
                         <hr>
                         @foreach($miners as $miner)
                             <div class="accordion-item mb-3">
-                                <h2 class="accordion-header" id="panelsStayOpen-heading{{$miner->algorand_address}}-{{$loop->iteration}}">
+                                <h2 class="accordion-header" id="panelsStayOpen-heading{{$email}}-{{$miner->algorand_address}}-{{$loop->iteration}}">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             style="margin: 0 !important;"
-                                            data-bs-target="#panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}"
+                                            data-bs-target="#panelsStayOpen-collapse{{$email}}-{{$miner->algorand_address}}-{{$loop->iteration}}"
                                             aria-expanded="false"
-                                            aria-controls="panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}">
+                                            aria-controls="panelsStayOpen-collapse{{$email}}-{{$miner->algorand_address}}-{{$loop->iteration}}">
                                        <span class="miner-title"> Miner - {{$miner->type}}</span>
                                     </button>
                                 </h2>
-                                <div id="panelsStayOpen-collapse{{$miner->algorand_address}}-{{$loop->iteration}}"
+                                <div id="panelsStayOpen-collapse{{$email}}-{{$miner->algorand_address}}-{{$loop->iteration}}"
                                      class="accordion-collapse collapse"
-                                     aria-labelledby="panelsStayOpen-heading{{$miner->algorand_address}}-{{$loop->iteration}}">
+                                     aria-labelledby="panelsStayOpen-heading{{$email}}-{{$miner->algorand_address}}-{{$loop->iteration}}">
                                     <div class="accordion-body">
                                         <div class="table-responsive">
                                             <table class="table">

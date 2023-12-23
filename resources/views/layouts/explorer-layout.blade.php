@@ -104,7 +104,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <nav id="sidebar" class="sidebar js-sidebar">
+    <nav id="sidebar" class="sidebar js-sidebar nav-custom" >
         <div class="sidebar-content js-simplebar">
             <a class='sidebar-brand' href='{{route('explorer.index')}}'>
                 <span class="align-middle d-flex justify-content-center align-items-center gap-2">
@@ -143,7 +143,7 @@
 {{--                    </a>--}}
 {{--                </li>--}}
             </ul>
-            <div class="sidebar-cta mb-5">
+            <div class="sidebar-cta">
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
                         <a class='sidebar-link' href='{{route('explorer.index')}}'>

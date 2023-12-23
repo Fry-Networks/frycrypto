@@ -162,7 +162,22 @@ class ExplorerController extends Controller
         $index = $request->get('index');
         $groupedMiners = $miners->groupBy('email');
 
-        $view = view('explorer.partials.hexagon-details', compact('groupedMiners', 'index'))->render();
+        // Compute the most frequent Algorand addresses for each group
+        $mostFrequentAddresses = [];
+        foreach ($groupedMiners as $email => $miners) {
+            $addressFrequency = [];
+            foreach ($miners as $miner) {
+                $address = $miner->algorand_address;
+                if (!isset($addressFrequency[$address])) {
+                    $addressFrequency[$address] = 0;
+                }
+                $addressFrequency[$address]++;
+            }
+            $mostFrequentAddresses[$email] = array_keys($addressFrequency, max($addressFrequency))[0];
+        }
+
+        // Pass the new variable to the view
+        $view = view('explorer.partials.hexagon-details', compact('groupedMiners', 'index', 'mostFrequentAddresses'))->render();
         return response()->json($view);
     }
 }
