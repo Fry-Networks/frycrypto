@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Transaction;
+use App\Services\AlgonodeService;
 use Illuminate\Support\Facades\DB;
 
 function formatAge($age_in_rounds): string
@@ -52,4 +54,56 @@ if (! function_exists('populateLatLng')) {
                 ]);
         }
     }
+}
+
+function updateAllTransactionsOfAddress($address)
+{
+    $round_time = Transaction::query()->where('sender', $address)->max('round_time') ?? 0;
+    $algo_node = new AlgonodeService();
+
+    $nextRound = $round_time;
+    $limit = 100;
+
+    do {
+        $transactions = $algo_node->fetchTransactions([
+            'address' => $address,
+            'min-round' => $nextRound,
+            'note-prefix' => 'Q29ubmVjdGl2aXR5IENoZWNrIGZv',
+            'limit' => $limit,
+            'next' => $nextToken ?? ''
+        ]);
+        if ($transactions && !empty($transactions['transactions']) && !empty($transactions['next-token'])) {
+            $nextToken = $transactions['next-token'];
+            $insertData = [];
+
+            foreach ($transactions['transactions'] as $transaction) {
+                if (!Transaction::where('transaction_id', $transaction['id'])->exists()) {
+                    $insertData[] = [
+                        'transaction_id' => $transaction['id'],
+                        'sender' => $transaction['sender'],
+                        'tx_type' => $transaction['tx-type'],
+                        'confirmed_round' => $transaction['confirmed-round'],
+                        'round_time' => $transaction['round-time'],
+                        'amount' => $transaction['amount'] ?? 0,
+                        'receiver' => $transaction['receiver'] ?? null,
+                        'note' => $transaction['note'] ?? null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+            }
+
+            if (!empty($insertData)) {
+                Transaction::insert($insertData);
+            }
+        } else {
+            break; // Break the loop if no transactions are returned
+        }
+    } while (true);
+    return true;
+}
+
+function getTransactionsByNote($note)
+{
+    return Transaction::query()->where('note', $note)->orderBy('round_time')->get();
 }

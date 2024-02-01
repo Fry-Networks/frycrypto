@@ -34,8 +34,4 @@ class HomeController extends Controller
         return response()->json(['status' => 'success']);
     }
 
-    public function singleMiner($miner_id)
-    {
-
-    }
 }

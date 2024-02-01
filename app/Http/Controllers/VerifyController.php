@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MinerDevices;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
 
 class VerifyController extends Controller
 {
@@ -16,6 +15,7 @@ class VerifyController extends Controller
         return response()->json([
             'status' => 'success',
             'route' => route('verify.home'),
+            'dashboard_route' => route('dashboard.index', ['address' => Crypt::encryptString($address)]),
         ]);
     }
 

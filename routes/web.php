@@ -4,8 +4,11 @@ use App\Http\Controllers\Verify\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/verify-active-account', [\App\Http\Controllers\VerifyController::class, 'verify'])->name('verify-active-account');
-Route::post('/save-miner-coordinates', [HomeController::class, 'saveCoordinates'])->name('save-miner-coordinates');
+Route::middleware(['web'])->group(function () {
+    Route::post('/verify-active-account', [\App\Http\Controllers\VerifyController::class, 'verify'])->name('verify-active-account');
+    Route::post('/save-miner-coordinates', [HomeController::class, 'saveCoordinates'])->name('save-miner-coordinates');
+});
+
 Route::domain(config('app.verify_domain'))->group(function () {
     Route::get('/', [\App\Http\Controllers\VerifyController::class, 'connectWallet'])->name('verify-miner');
     Route::middleware(['web', 'check_miner_id'])->group(function () {
@@ -33,24 +36,33 @@ Route::domain(config('app.verify_domain'))->group(function () {
 });
 
 Route::domain(config('app.explorer_domain'))->group(function () {
-    Route::get('/', [\App\Http\Controllers\ExplorerController::class, 'dashboard'])->name('explorer.index');
+    Route::middleware(['web'])->group(function () {
+        Route::get('/', [\App\Http\Controllers\ExplorerController::class, 'dashboard'])->name('explorer.index');
 
-    Route::get('/map', [\App\Http\Controllers\ExplorerController::class, 'viewMap'])->name('explorer.map');
-    Route::get('/get-hexagon-details', [\App\Http\Controllers\ExplorerController::class, 'getHexDetails'])->name('explorer.get-hexagon-details');
+        Route::get('/map', [\App\Http\Controllers\ExplorerController::class, 'viewMap'])->name('explorer.map');
+        Route::get('/get-hexagon-details', [\App\Http\Controllers\ExplorerController::class, 'getHexDetails'])->name('explorer.get-hexagon-details');
 
-    Route::get('/accounts', [\App\Http\Controllers\ExplorerController::class, 'accounts'])->name('explorer.accounts');
-    Route::get('/account/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewAccount'])->name('explorer.view-account');
+        Route::get('/accounts', [\App\Http\Controllers\ExplorerController::class, 'accounts'])->name('explorer.accounts');
+        Route::get('/account/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewAccount'])->name('explorer.view-account');
 
-    Route::get('/miners', [\App\Http\Controllers\ExplorerController::class, 'miners'])->name('explorer.miners');
-    Route::get('/miner/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewMiner'])->name('explorer.view-miner');
+        Route::get('/miners', [\App\Http\Controllers\ExplorerController::class, 'miners'])->name('explorer.miners');
+        Route::get('/miner/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewMiner'])->name('explorer.view-miner');
 
-    Route::get('/transactions', [\App\Http\Controllers\ExplorerController::class, 'transactions'])->name('explorer.transactions');
-    Route::get('/transaction/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewTransaction'])->name('explorer.view-transaction');
+        Route::get('/transactions', [\App\Http\Controllers\ExplorerController::class, 'transactions'])->name('explorer.transactions');
+        Route::get('/transaction/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewTransaction'])->name('explorer.view-transaction');
 
-    Route::get('/blocks', [\App\Http\Controllers\ExplorerController::class, 'blocks'])->name('explorer.blocks');
-    Route::get('/block/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewBlock'])->name('explorer.view-block');
+        Route::get('/blocks', [\App\Http\Controllers\ExplorerController::class, 'blocks'])->name('explorer.blocks');
+        Route::get('/block/{id}', [\App\Http\Controllers\ExplorerController::class, 'viewBlock'])->name('explorer.view-block');
 
-    Route::get('/populateLocations', function () {
-        populateLatLng();
+        Route::get('/populateLocations', function () {
+            populateLatLng();
+        });
     });
+});
+
+Route::domain(config('app.dashboard_domain'))->group(function () {
+    Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/{note}/transactions', [\App\Http\Controllers\DashboardController::class, 'getTransactions'])->name('dashboard.transactions');
+    Route::get('/transaction/{tx_id}', [\App\Http\Controllers\DashboardController::class, 'viewTransaction'])->name('dashboard.view-transaction');
+
 });

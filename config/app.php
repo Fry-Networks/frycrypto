@@ -187,6 +187,7 @@ return [
 
     'verify_domain' => env('VERIFY_DOMAIN'),
     'explorer_domain' => env('EXPLORER_DOMAIN'),
+    'dashboard_domain' => env('DASHBOARD_DOMAIN'),
 
     'purestake_api_key' => env('PURESTAKE_API_KEY'),
     'google_api_key' => env('GOOGLE_API_KEY'),

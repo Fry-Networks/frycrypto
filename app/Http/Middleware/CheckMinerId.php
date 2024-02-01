@@ -13,7 +13,6 @@ class CheckMinerId
         if (!$request->session()->has('algo_address')) {
             return redirect()->route('verify-miner');
         }
-
         return $next($request);
     }
 }

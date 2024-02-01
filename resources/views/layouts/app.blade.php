@@ -117,7 +117,7 @@
                                 <label for="password_confirmation">Confirm New Password</label>
                                 <input type="password" class="form-control" id="password_confirmation"
                                        name="password_confirmation">
-                            </div>
+                            </div>a
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel

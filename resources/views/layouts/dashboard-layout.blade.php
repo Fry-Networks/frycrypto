@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FryCrypto Explorer</title>
+    <title>FryCrypto Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('assets/images/logo_small.png')}}" type="image/x-icon">
@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
     <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
     <style>
         /* Container holding the buttons */
@@ -112,30 +113,48 @@
                 </span>
             </a>
             <ul class="sidebar-nav">
-                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">
-                    <a class='sidebar-link' href='{{route('explorer.index')}}'>
-                        <i class="align-middle" data-feather="pie-chart"></i>
+                <li class="sidebar-item {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}">
+                    <a class='sidebar-link' href='{{route('dashboard.index', ['address'=>$address ?? session('algonode_address')])}}'>
+                        <i class="align-middle" data-feather="home"></i>
                         <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.accounts' ? 'active' : '' }}">
-                    <a class='sidebar-link' href='{{route('explorer.accounts')}}'>
-                        <i class="align-middle" data-feather="user"></i>
-                        <span class="align-middle">Accounts</span>
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">
+                    <a class='sidebar-link' href='{{route('explorer.index')}}'>
+                        <i class="align-middle" data-feather="table"></i>
+                        <span class="align-middle">Indexer</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.miners' ? 'active' : '' }}">
-                    <a class='sidebar-link' href='{{route('explorer.miners')}}'>
-                        <i class="align-middle" data-feather="credit-card"></i>
-                        <span class="align-middle">Miners</span>
+                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">
+                    <a class='sidebar-link ' href='{{route('explorer.map')}}'>
+                        <i class="align-middle" data-feather="map"></i>
+                        <span class="align-middle">Map</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.transactions' ? 'active' : '' }}">
-                    <a class='sidebar-link' href='{{route('explorer.transactions')}}'>
-                        <i class="align-middle" data-feather="layers"></i>
-                        <span class="align-middle">Transactions</span>
-                    </a>
-                </li>
+{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">--}}
+{{--                    <a class='sidebar-link' href='{{route('explorer.index')}}'>--}}
+{{--                        <i class="align-middle" data-feather="pie-chart"></i>--}}
+{{--                        <span class="align-middle">Dashboard</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.accounts' ? 'active' : '' }}">--}}
+{{--                    <a class='sidebar-link' href='{{route('explorer.accounts')}}'>--}}
+{{--                        <i class="align-middle" data-feather="user"></i>--}}
+{{--                        <span class="align-middle">Accounts</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.miners' ? 'active' : '' }}">--}}
+{{--                    <a class='sidebar-link' href='{{route('explorer.miners')}}'>--}}
+{{--                        <i class="align-middle" data-feather="credit-card"></i>--}}
+{{--                        <span class="align-middle">Miners</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.transactions' ? 'active' : '' }}">--}}
+{{--                    <a class='sidebar-link' href='{{route('explorer.transactions')}}'>--}}
+{{--                        <i class="align-middle" data-feather="layers"></i>--}}
+{{--                        <span class="align-middle">Transactions</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 {{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.blocks' ? 'active' : '' }}">--}}
 {{--                    <a class='sidebar-link' href='{{route('explorer.blocks')}}'>--}}
 {{--                        <i class="align-middle" data-feather="box"></i>--}}
@@ -143,37 +162,35 @@
 {{--                    </a>--}}
 {{--                </li>--}}
             </ul>
-            <div class="sidebar-cta">
-                <ul class="sidebar-nav">
-                    <li class="sidebar-item">
-                        <a class='sidebar-link' href='{{route('explorer.index')}}'>
-                            <i class="align-middle" data-feather="home"></i>
-                            <span class="align-middle">Home</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">
-                        <a class='sidebar-link ' href='{{route('explorer.map')}}'>
-                            <i class="align-middle" data-feather="map"></i>
-                            <span class="align-middle">Map</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class='sidebar-link' href='{{route('verify-miner')}}'>
-                            <i class="align-middle" data-feather="codesandbox"></i>
-                            <span class="align-middle">Change Wallet</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+{{--            <div class="sidebar-cta">--}}
+{{--                <ul class="sidebar-nav">--}}
+{{--                    <li class="sidebar-item">--}}
+{{--                        <a class='sidebar-link' href='{{route('explorer.index')}}'>--}}
+{{--                            <i class="align-middle" data-feather="home"></i>--}}
+{{--                            <span class="align-middle">Indexer</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">--}}
+{{--                        <a class='sidebar-link ' href='{{route('explorer.map')}}'>--}}
+{{--                            <i class="align-middle" data-feather="map"></i>--}}
+{{--                            <span class="align-middle">Map</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="sidebar-item">--}}
+{{--                        <a class='sidebar-link' href='#'>--}}
+{{--                            <i class="align-middle" data-feather="file-text"></i>--}}
+{{--                            <span class="align-middle">Docs</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
         </div>
     </nav>
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg">
-            <a class="sidebar-toggle js-sidebar-toggle">
-                <i class="hamburger align-self-center"></i>
-            </a>
+            <img src="" alt="">
         </nav>
-        <main class="{{ Route::currentRouteName() == 'explorer.map' ? 'map-style' : 'content' }}">
+        <main class="content">
             @yield('content')
         </main>
         <footer class="footer">

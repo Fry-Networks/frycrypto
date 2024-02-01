@@ -69,6 +69,7 @@ export default function Connect() {
     const anyConnected = providers?.some(provider => provider.isConnected);
     const [message, setMessage] = useState('');
     const [route, setRoute] = useState('');
+    const [dashboard_route, setDashboardRoute] = useState('');
 
     useEffect(() => {
         if (activeAccount) {
@@ -83,6 +84,7 @@ export default function Connect() {
                 .then(data => {
                     if (data.status == 'success'){
                         setRoute(data.route);
+                        setDashboardRoute(data.dashboard_route);
                     }else{
                         setMessage('Account is not registered to a miner');
                     }
@@ -140,6 +142,22 @@ export default function Connect() {
                         {/* Show the disconnect button if the provider is connected */}
                         {provider.isConnected && <DisconnectButton provider={provider} style={elementStyle} />}
                         {message && <p style={{color:'red'}}>{message}</p>}
+                        {dashboard_route && (
+                            <a
+                                href={dashboard_route}
+                                style={{
+                                    color: 'white',
+                                    backgroundColor: 'green',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    textDecoration: 'none',
+                                    display: 'inline-block',
+                                    margin: '10px 0'
+                                }}
+                            >
+                                Go to Dashboard
+                            </a>
+                        )}
                         {route && (
                             <a
                                 href={route}
@@ -153,7 +171,7 @@ export default function Connect() {
                                     margin: '10px 0'
                                 }}
                             >
-                                Go to Dashboard
+                                Verify/Modify Miner
                             </a>
                         )}
                     </div>
