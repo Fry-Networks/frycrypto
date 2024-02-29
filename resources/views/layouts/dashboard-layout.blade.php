@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 
     <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
     <style>
         /* Container holding the buttons */
@@ -122,7 +124,7 @@
                 <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.index')}}'>
                         <i class="align-middle" data-feather="table"></i>
-                        <span class="align-middle">Indexer</span>
+                        <span class="align-middle">Explorer</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">
@@ -131,59 +133,7 @@
                         <span class="align-middle">Map</span>
                     </a>
                 </li>
-{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">--}}
-{{--                    <a class='sidebar-link' href='{{route('explorer.index')}}'>--}}
-{{--                        <i class="align-middle" data-feather="pie-chart"></i>--}}
-{{--                        <span class="align-middle">Dashboard</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.accounts' ? 'active' : '' }}">--}}
-{{--                    <a class='sidebar-link' href='{{route('explorer.accounts')}}'>--}}
-{{--                        <i class="align-middle" data-feather="user"></i>--}}
-{{--                        <span class="align-middle">Accounts</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.miners' ? 'active' : '' }}">--}}
-{{--                    <a class='sidebar-link' href='{{route('explorer.miners')}}'>--}}
-{{--                        <i class="align-middle" data-feather="credit-card"></i>--}}
-{{--                        <span class="align-middle">Miners</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.transactions' ? 'active' : '' }}">--}}
-{{--                    <a class='sidebar-link' href='{{route('explorer.transactions')}}'>--}}
-{{--                        <i class="align-middle" data-feather="layers"></i>--}}
-{{--                        <span class="align-middle">Transactions</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.blocks' ? 'active' : '' }}">--}}
-{{--                    <a class='sidebar-link' href='{{route('explorer.blocks')}}'>--}}
-{{--                        <i class="align-middle" data-feather="box"></i>--}}
-{{--                        <span class="align-middle">Blocks</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
             </ul>
-{{--            <div class="sidebar-cta">--}}
-{{--                <ul class="sidebar-nav">--}}
-{{--                    <li class="sidebar-item">--}}
-{{--                        <a class='sidebar-link' href='{{route('explorer.index')}}'>--}}
-{{--                            <i class="align-middle" data-feather="home"></i>--}}
-{{--                            <span class="align-middle">Indexer</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">--}}
-{{--                        <a class='sidebar-link ' href='{{route('explorer.map')}}'>--}}
-{{--                            <i class="align-middle" data-feather="map"></i>--}}
-{{--                            <span class="align-middle">Map</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="sidebar-item">--}}
-{{--                        <a class='sidebar-link' href='#'>--}}
-{{--                            <i class="align-middle" data-feather="file-text"></i>--}}
-{{--                            <span class="align-middle">Docs</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
         </div>
     </nav>
     <div class="main">

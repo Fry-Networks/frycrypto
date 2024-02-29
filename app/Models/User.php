@@ -21,6 +21,18 @@ class User extends Authenticatable
         'id'
     ];
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+        'status',
+        'email_verified_at',
+    ];
+
+    CONST ROLE_ADMIN = 'admin';
+    CONST ROLE_MANAGER = 'manager';
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -40,4 +52,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
 }

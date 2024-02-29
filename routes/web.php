@@ -16,16 +16,20 @@ Route::domain(config('app.verify_domain'))->group(function () {
     });
 
 //    admin routes
-    Route::middleware(['web', 'auth'])->group(function () {
-        Route::get('admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('minerDevices.index');
-        Route::get('admin/device/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('minerDevices.create');
-        Route::get('admin/device/import', [\App\Http\Controllers\AdminController::class, 'import'])->name('minerDevices.import');
-        Route::post('admin/device/import', [\App\Http\Controllers\AdminController::class, 'importProcess'])->name('minerDevices.importFile');
-        Route::get('admin/device/edit/{id}', [\App\Http\Controllers\AdminController::class, 'edit'])->name('minerDevices.edit');
-        Route::get('admin/device/delete/{id}', [\App\Http\Controllers\AdminController::class, 'delete'])->name('minerDevices.delete');
-        Route::post('admin/device/store', [\App\Http\Controllers\AdminController::class, 'store'])->name('minerDevices.store');
-        Route::patch('admin/device/update/{id}', [\App\Http\Controllers\AdminController::class, 'update'])->name('minerDevices.update');
-        Route::post('admin/update-profile', [\App\Http\Controllers\AdminController::class, 'updateProfile'])->name('admin.updateProfile');
+//    Route::get('badmin', function (){
+//        $admin = \App\Models\User::query()->where('role', \App\Models\User::ROLE_ADMIN)->first();
+//        Auth::login($admin);
+//    });
+    Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
+        Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('minerDevices.index');
+        Route::get('device/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('minerDevices.create');
+        Route::get('device/import', [\App\Http\Controllers\AdminController::class, 'import'])->name('minerDevices.import');
+        Route::post('device/import', [\App\Http\Controllers\AdminController::class, 'importProcess'])->name('minerDevices.importFile');
+        Route::get('device/edit/{id}', [\App\Http\Controllers\AdminController::class, 'edit'])->name('minerDevices.edit');
+        Route::get('device/delete/{id}', [\App\Http\Controllers\AdminController::class, 'delete'])->name('minerDevices.delete');
+        Route::post('device/store', [\App\Http\Controllers\AdminController::class, 'store'])->name('minerDevices.store');
+        Route::patch('device/update/{id}', [\App\Http\Controllers\AdminController::class, 'update'])->name('minerDevices.update');
+        Route::post('update-profile', [\App\Http\Controllers\AdminController::class, 'updateProfile'])->middleware('is_admin')->name('admin.updateProfile');
     });
 
     Auth::routes([

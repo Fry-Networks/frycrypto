@@ -58,16 +58,19 @@ if (! function_exists('populateLatLng')) {
 
 function updateAllTransactionsOfAddress($address)
 {
-    $round_time = Transaction::query()->where('sender', $address)->max('round_time') ?? 0;
+    $latest_record = Transaction::query()->where('sender', $address)->latest()->first();
+    if ($latest_record) {
+        $after_time = $latest_record->created_at->format('Y-m-d\TH:i:s.uP');
+    } else {
+        $after_time = '2021-01-01T00:00:00.000Z';
+    }
     $algo_node = new AlgonodeService();
-
-    $nextRound = $round_time;
     $limit = 100;
 
     do {
         $transactions = $algo_node->fetchTransactions([
             'address' => $address,
-            'min-round' => $nextRound,
+            'after-time' => $after_time,
             'note-prefix' => 'Q29ubmVjdGl2aXR5IENoZWNrIGZv',
             'limit' => $limit,
             'next' => $nextToken ?? ''
@@ -97,7 +100,7 @@ function updateAllTransactionsOfAddress($address)
                 Transaction::insert($insertData);
             }
         } else {
-            break; // Break the loop if no transactions are returned
+            break;
         }
     } while (true);
     return true;

@@ -5,17 +5,27 @@
                 <div class="card-body">
                     <div>
                         <div class="table-responsive">
-                            <div class="form-group d-flex col-md-4  flex-nowrap align-items-center">
-                                <label for="tx_type" class="w-25">Tx Type</label>
-                                <select class="form-control form-select border-0" style="background-color: #ececec" wire:model.live="transactionType">
-                                    <option value="pay">Pay</option>
-                                    <option value="keyreg">Key Registration</option>
-                                    <option value="acfg">Asset Configuration</option>
-                                    <option value="axfer">Asset Transfer</option>
-                                    <option value="afrz">Asset Freeze</option>
-                                    <option value="appl">Application Call</option>
-                                    <option value="stpf">State Proof</option>
-                                </select>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-group d-flex col-md-4  flex-nowrap align-items-center">
+                                    <label for="tx_type" class="w-25">Tx Type</label>
+                                    <select class="form-control form-select border-0" style="background-color: #ececec" wire:model.live="transactionType">
+                                        <option value="pay">Pay</option>
+                                        <option value="keyreg">Key Registration</option>
+                                        <option value="acfg">Asset Configuration</option>
+                                        <option value="axfer">Asset Transfer</option>
+                                        <option value="afrz">Asset Freeze</option>
+                                        <option value="appl">Application Call</option>
+                                        <option value="stpf">State Proof</option>
+                                    </select>
+                                </div>
+                                <div class="form-group d-flex align-items-center">
+                                    <label for="datepicker" class="p-2">Filter By Date</label>
+                                    <x-date-picker
+                                        wire:model.live="date"
+                                        id="datepicker"
+                                        autocomplete="off"
+                                    />
+                                </div>
                             </div>
                             <hr/>
                             <div wire:loading class="loading-indicator">
@@ -34,7 +44,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($transactions as $transaction)
+                                @forelse($transactions as $transaction)
                                     <tr>
                                         <td>
                                             <a href="{{route('dashboard.view-transaction', $transaction['transaction_id'])}}">{{ secretString($transaction['transaction_id']) }}</a>
@@ -45,7 +55,11 @@
                                         </td>
                                         <td>{{formatAgeFromTimestamp($transaction['round_time'])}}</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center">No Transactions Found</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>

@@ -68,10 +68,12 @@
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
-                                   data-bs-target="#profileModal">
-                                    {{ __('Settings') }}
-                                </a>
+                                @if(auth()->check() && auth()->user()->isAdmin())
+                                    <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal"
+                                       data-bs-target="#profileModal">
+                                        {{ __('Settings') }}
+                                    </a>
+                                @endif
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>

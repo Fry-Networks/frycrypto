@@ -115,7 +115,7 @@
                 <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.index' ? 'active' : '' }}">
                     <a class='sidebar-link' href='{{route('explorer.index')}}'>
                         <i class="align-middle" data-feather="pie-chart"></i>
-                        <span class="align-middle">Dashboard</span>
+                        <span class="align-middle">Home</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.accounts' ? 'active' : '' }}">
@@ -145,12 +145,6 @@
             </ul>
             <div class="sidebar-cta">
                 <ul class="sidebar-nav">
-                    <li class="sidebar-item">
-                        <a class='sidebar-link' href='{{route('explorer.index')}}'>
-                            <i class="align-middle" data-feather="home"></i>
-                            <span class="align-middle">Home</span>
-                        </a>
-                    </li>
                     <li class="sidebar-item {{ Route::currentRouteName() == 'explorer.map' ? 'active' : '' }}">
                         <a class='sidebar-link ' href='{{route('explorer.map')}}'>
                             <i class="align-middle" data-feather="map"></i>

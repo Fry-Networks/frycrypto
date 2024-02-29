@@ -22,9 +22,32 @@
             color: #333 !important;
         }
 
-        .chart_container{
+        .chart_container {
             width: 100% !important;
             height: 150px;
+        }
+
+        .status-circle {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .bg-success {
+            background-color: green;
+        }
+
+        .bg-yellow {
+            background-color: yellow;
+        }
+
+        .bg-warning {
+            background-color: orange;
+        }
+
+        .bg-danger {
+            background-color: red;
         }
     </style>
 @endpush

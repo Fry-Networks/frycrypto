@@ -82,7 +82,9 @@
                             @if ($page == $paginator->currentPage())
                                 <li class="active" wire:key="paginator-{{ $paginator->getPageName() }}-page-{{ $page }}" aria-current="page"><span>{{ $page }}</span></li>
                             @else
-                                <li wire:key="paginator-{{ $paginator->getPageName() }}-page-{{ $page }}"><button type="button" wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')" x-on:click="{{ $scrollIntoViewJsSnippet }}">{{ $page }}</button></li>
+                                <li wire:key="paginator-{{ $paginator->getPageName() }}-page-{{ $page }}">
+                                    <button type="button" wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')" x-on:click="{{ $scrollIntoViewJsSnippet }}"  style="width: 50px">{{ $page }}</button>
+                                </li>
                             @endif
                         @endforeach
                     @endif

@@ -43,11 +43,28 @@ class Index extends Component
                     'note' => $originalNote,
                     'on_boarding' => $transactions->min('round_time'),
                     'transactions' => getTransactionsByNote($originalNote),
-                    'verified' => MinerDevices::query()->where('mac', $mac)->exists()
+                    'verified' => MinerDevices::query()->where('mac', $mac)->exists(),
+                    'status' => $this->getMinerStatus($transactions->where('note', $originalNote)->max('round_time')),
                 ];
             }
         }
         $this->miners = array_values($miners);
+    }
+
+    private function getMinerStatus($max)
+    {
+        $timeOnline = now()->subHours(2)->timestamp;
+        $timePossibleOnline = now()->subHours(4)->timestamp;
+        $timePossibleOffline = now()->subHours(12)->timestamp;
+        if ($max < $timeOnline) {
+            return 'online';
+        } elseif ($max < $timePossibleOnline) {
+            return 'possible online';
+        } elseif ($max < $timePossibleOffline) {
+            return 'possible offline';
+        } else {
+            return 'offline';
+        }
     }
 
 }
