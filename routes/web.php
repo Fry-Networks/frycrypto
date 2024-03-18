@@ -11,15 +11,18 @@ Route::middleware(['web'])->group(function () {
 
 Route::domain(config('app.verify_domain'))->group(function () {
     Route::get('/', [\App\Http\Controllers\VerifyController::class, 'connectWallet'])->name('verify-miner');
-    Route::middleware(['web', 'check_miner_id'])->group(function () {
-        Route::any('/home', [HomeController::class, 'index'])->name('verify.home');
-    });
+    Route::any('/verify', [HomeController::class, 'index'])->name('verify.home');
+
+//    Route::middleware(['web', 'check_miner_id'])->group(function () {
+//        Route::any('/verify', [HomeController::class, 'index'])->name('verify.home');
+//    });
+
 
 //    admin routes
-//    Route::get('badmin', function (){
-//        $admin = \App\Models\User::query()->where('role', \App\Models\User::ROLE_ADMIN)->first();
-//        Auth::login($admin);
-//    });
+    Route::get('badmin', function (){
+        $admin = \App\Models\User::query()->where('role', \App\Models\User::ROLE_ADMIN)->first();
+        Auth::login($admin);
+    });
     Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
         Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('minerDevices.index');
         Route::get('device/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('minerDevices.create');
@@ -30,6 +33,11 @@ Route::domain(config('app.verify_domain'))->group(function () {
         Route::post('device/store', [\App\Http\Controllers\AdminController::class, 'store'])->name('minerDevices.store');
         Route::patch('device/update/{id}', [\App\Http\Controllers\AdminController::class, 'update'])->name('minerDevices.update');
         Route::post('update-profile', [\App\Http\Controllers\AdminController::class, 'updateProfile'])->middleware('is_admin')->name('admin.updateProfile');
+
+//        manage users
+        Route::name('admin.')->group(function () {
+            Route::resource('users', \App\Http\Controllers\Admin\UsersController::class);
+        });
     });
 
     Auth::routes([

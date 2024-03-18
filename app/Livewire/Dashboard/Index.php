@@ -59,9 +59,9 @@ class Index extends Component
         if ($max < $timeOnline) {
             return 'online';
         } elseif ($max < $timePossibleOnline) {
-            return 'possible online';
+            return 'possibly online';
         } elseif ($max < $timePossibleOffline) {
-            return 'possible offline';
+            return 'possibly offline';
         } else {
             return 'offline';
         }

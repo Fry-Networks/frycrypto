@@ -2,6 +2,9 @@
 @section('page-title', 'Verify/Update Location of miner')
 @section('content')
     <div class="container-xl mt-4">
+        <div class="mb-3 d-flex">
+            <a class="btn btn-sm btn-success" href="{{route('verify-miner')}}"><i class="fas fa-home"></i> Home</a>
+        </div>
         <div class="card mb-4">
             <div class="card-header" style="background-color: #720b0b">
                 <h3 class="text-white">Miner Information</h3>

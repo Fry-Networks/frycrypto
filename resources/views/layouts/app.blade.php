@@ -26,7 +26,9 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                <span class="align-middle d-flex justify-content-center align-items-center gap-2">
+                    <img src="{{asset('assets/images/logo_new.png')}}" style="width: 80px" alt="">
+                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -35,14 +37,22 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
+                @auth
+                    <ul class="navbar-nav me-auto">
+                        <x-nav-link href="{{ route('minerDevices.index') }}"
+                                    :active="request()->routeIs('minerDevices.index')">
+                            {{ __('Miner Devices') }}
+                        </x-nav-link>
+                        @if(auth()->user()->isAdmin())
+                            <x-nav-link href="{{ route('admin.users.index') }}"
+                                        :active="request()->routeIs('admin.users.index')">
+                                {{ __('Users') }}
+                            </x-nav-link>
+                        @endif
+                    </ul>
+                @endauth
 
-                </ul>
-
-                <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
@@ -119,7 +129,8 @@
                                 <label for="password_confirmation">Confirm New Password</label>
                                 <input type="password" class="form-control" id="password_confirmation"
                                        name="password_confirmation">
-                            </div>a
+                            </div>
+                            a
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel

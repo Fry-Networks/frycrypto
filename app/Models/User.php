@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->role === self::ROLE_ADMIN;
     }
+
+    public function getAgeAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 }
