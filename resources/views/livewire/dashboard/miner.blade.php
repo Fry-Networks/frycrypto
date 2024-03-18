@@ -39,10 +39,12 @@
                             @endif
                         </div>
                     </div>
-                    <div
-                        class="d-flex flex-column justify-content-center align-items-start mb-3">
-                        @include('dashboard.partials.rewards-chart')
-                    </div>
+                    @if($miner['note'])
+                        <div
+                            class="d-flex flex-column justify-content-center align-items-start mb-3">
+                            @include('dashboard.partials.rewards-chart')
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

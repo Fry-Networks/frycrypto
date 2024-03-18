@@ -48,6 +48,19 @@ class Index extends Component
                 ];
             }
         }
+        $verified_miners = MinerDevices::query()->where('algorand_address', $this->address)->get();
+        foreach ($verified_miners as $verified_miner) {
+            if (!isset($miners[$verified_miner->mac])) {
+                $miners[$verified_miner->mac] = [
+                    'address' => $verified_miner->mac ?? $this->address,
+                    'note' => false,
+                    'on_boarding' => $verified_miner->created_at->timestamp,
+                    'transactions' => false,
+                    'verified' => true,
+                    'status' => 'online',
+                ];
+            }
+        }
         $this->miners = array_values($miners);
     }
 

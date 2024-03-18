@@ -20,6 +20,7 @@ class DashboardController extends Controller
             return redirect()->route('verify-miner');
         }
 //        $address = '2H7P3YSSW5HE45K54U3LCG2QXOFM777LVQ7WIVW5BRNZMDKLE2KJ24TUUM';
+//        $address = '4IKR3U4PFKNS3ZQQWWB7QAACV4H7WD3IAEQQ3535D77J5PMZGZ7PEVTHAI';
         session(['algonode_address' => $address]);
         return view('dashboard.index')->with(['address' => $address]);
     }
