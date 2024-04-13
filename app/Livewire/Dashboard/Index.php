@@ -53,7 +53,7 @@ class Index extends Component
         foreach ($verified_miners as $verified_miner) {
             if (!isset($miners[$verified_miner->mac])) {
                 $miners[$verified_miner->mac] = [
-                    'address' => $verified_miner->mac ?? $this->address,
+                    'address' => empty($verified_miner->mac) ? $this->address : $verified_miner->mac,
                     'note' => false,
                     'on_boarding' => $verified_miner->created_at->timestamp,
                     'transactions' => false,
