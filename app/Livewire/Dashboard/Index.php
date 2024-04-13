@@ -38,13 +38,14 @@ class Index extends Component
             $mac = substr($note, 23);
             $originalNote = $transaction->getAttributes()['note'];
             if ($mac && !isset($miners[$mac])) {
+                $max_round_time = Transaction::query()->where('note', $originalNote)->max('round_time');
                 $miners[$mac] = [
                     'address' => $mac,
                     'note' => $originalNote,
                     'on_boarding' => $transactions->min('round_time'),
                     'transactions' => getTransactionsByNote($originalNote),
                     'verified' => MinerDevices::query()->where('mac', $mac)->exists(),
-                    'status' => $this->getMinerStatus($transactions->where('note', $originalNote)->max('round_time')),
+                    'status' => $max_round_time ? $this->getMinerStatus($max_round_time) : 'offline',
                 ];
             }
         }
@@ -64,16 +65,17 @@ class Index extends Component
         $this->miners = array_values($miners);
     }
 
-    private function getMinerStatus($max)
+    private function getMinerStatus($lastActiveTimestamp)
     {
         $timeOnline = now()->subHours(2)->timestamp;
         $timePossibleOnline = now()->subHours(4)->timestamp;
         $timePossibleOffline = now()->subHours(12)->timestamp;
-        if ($max < $timeOnline) {
+
+        if ($lastActiveTimestamp > $timeOnline) {
             return 'online';
-        } elseif ($max < $timePossibleOnline) {
+        } elseif ($lastActiveTimestamp > $timePossibleOnline) {
             return 'possibly online';
-        } elseif ($max < $timePossibleOffline) {
+        } elseif ($lastActiveTimestamp > $timePossibleOffline) {
             return 'possibly offline';
         } else {
             return 'offline';

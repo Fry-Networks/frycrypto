@@ -24,7 +24,6 @@ Route::domain(config('app.verify_domain'))->group(function () {
 //        Auth::login($admin);
 //    });
     Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
-        Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('minerDevices.index');
         Route::get('device/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('minerDevices.create');
         Route::get('device/import', [\App\Http\Controllers\AdminController::class, 'import'])->name('minerDevices.import');
         Route::post('device/import', [\App\Http\Controllers\AdminController::class, 'importProcess'])->name('minerDevices.importFile');
@@ -39,6 +38,7 @@ Route::domain(config('app.verify_domain'))->group(function () {
             Route::resource('users', \App\Http\Controllers\Admin\UsersController::class);
         });
     });
+    Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('minerDevices.index');
 
     Auth::routes([
         'register' => false, // Registration Routes...

@@ -10,17 +10,18 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $encryptedValue = $request->address;
-        if (!$encryptedValue) {
-            return redirect()->route('verify-miner');
-        }
-        try {
-            $address = Crypt::decryptString($encryptedValue);
-        }catch (\Exception $exception){
-            return redirect()->route('verify-miner');
-        }
+//        $encryptedValue = $request->address;
+//        if (!$encryptedValue) {
+//            return redirect()->route('verify-miner');
+//        }
+//        try {
+//            $address = Crypt::decryptString($encryptedValue);
+//        }catch (\Exception $exception){
+//            return redirect()->route('verify-miner');
+//        }
 //        $address = '2H7P3YSSW5HE45K54U3LCG2QXOFM777LVQ7WIVW5BRNZMDKLE2KJ24TUUM';
 //        $address = '4IKR3U4PFKNS3ZQQWWB7QAACV4H7WD3IAEQQ3535D77J5PMZGZ7PEVTHAI';
+        $address = 'B2OPWMKQNAV3FCMYDTGPKEBSKWAOTDRRGLP5LXT7XFMKBAD2QVCB4E7KQA';
         session(['algonode_address' => $address]);
         return view('dashboard.index')->with(['address' => $address]);
     }
