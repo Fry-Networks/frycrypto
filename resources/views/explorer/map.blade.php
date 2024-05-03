@@ -25,7 +25,6 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <script src="https://unpkg.com/h3-js"></script>
-
     <script>
         const accessToken = "{{config('app.mapbox_access_token')}}";
         let points = @json(json_decode($points));

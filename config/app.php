@@ -193,5 +193,5 @@ return [
     'google_api_key' => env('GOOGLE_API_KEY'),
     'mapbox_access_token' => env('MAPBOX_ACCESS_TOKEN'),
 
-    'algonode_indexer_url' => env('ALGONODE_INDEXER_URL', 'https://mainnet-idx.algonode.network'),
+    'algonode_indexer_url' => env('ALGONODE_INDEXER_URL', 'https://mainnet-idx.algonode.cloud'),
 ];

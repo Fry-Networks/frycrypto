@@ -154,7 +154,7 @@
                 <div class="float-end">
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <a href="https://twitter.com/frycrypto" target="_blank"
+                            <a href="https://twitter.com/fryscrypto" target="_blank"
                                style="font-size: 1.2em; color: #00903a;">
                                 <svg viewBox="64 64 896 896" focusable="false" data-icon="twitter" width="1em"
                                      height="1em" fill="currentColor" aria-hidden="true">
@@ -164,7 +164,7 @@
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://github.com/frycrypto" target="_blank"
+                            <a href="https://github.com/fryscrypto" target="_blank"
                                style="font-size: 1.2em; padding-inline: 20px; color: #00903a">
                                 <svg viewBox="64 64 896 896" focusable="false" data-icon="github" width="1em"
                                      height="1em" fill="currentColor" aria-hidden="true">

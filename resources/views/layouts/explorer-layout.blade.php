@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-
-    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/deck.gl@8.9.32/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/google-maps@8.7.3/dist.min.js"></script>
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/explorer.js'])
     <style>
         /* Container holding the buttons */
@@ -181,7 +181,7 @@
                 <div class="float-end">
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <a href="https://twitter.com/frycrypto" target="_blank"
+                            <a href="https://twitter.com/fryscrypto" target="_blank"
                                style="font-size: 1.2em; color: #00903a;">
                                 <svg viewBox="64 64 896 896" focusable="false" data-icon="twitter" width="1em"
                                      height="1em" fill="currentColor" aria-hidden="true">
@@ -191,7 +191,7 @@
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://github.com/frycrypto" target="_blank"
+                            <a href="https://github.com/fryscrypto" target="_blank"
                                style="font-size: 1.2em; padding-inline: 20px; color: #00903a">
                                 <svg viewBox="64 64 896 896" focusable="false" data-icon="github" width="1em"
                                      height="1em" fill="currentColor" aria-hidden="true">

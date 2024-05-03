@@ -36,12 +36,12 @@
                         <img src="{{asset('assets/svgs/email.svg')}}" alt="">
                         <span style="margin-left:10px">contact@fryfoundation.com</span></p>
                     <div style="display:flex;justify-content:space-between;width:150px">
-                        <a href="https://twitter.com/your-handle"><img src="{{asset('assets/svgs/twitter.svg')}}" alt=""></a>
-                        <a href="https://discord.com/in/your-profile" style="margin-left:2px"><img
+                        <a href="https://twitter.com/fryscrypto"><img src="{{asset('assets/svgs/twitter.svg')}}" alt=""></a>
+                        <a href="https://discord.com/in/fryscrypto" style="margin-left:2px"><img
                                 src="{{asset('assets/svgs/discord.svg')}}" alt=""></a>
-                        <a href="https://linkedin.com/in/your-profile"><img src="{{asset('assets/svgs/linkedin.svg')}}" alt=""></a>
-                        <a href="https://facebook.com/your-profile"><img src="{{asset('assets/svgs/fb.svg')}}" alt=""></a>
-                        <a href="https://youtube.com/c/your-channel"><img src="{{asset('assets/svgs/yt.svg')}}" alt=""></a>
+                        <a href="https://linkedin.com/in/fryscrypto"><img src="{{asset('assets/svgs/linkedin.svg')}}" alt=""></a>
+                        <a href="https://facebook.com/fryscrypto"><img src="{{asset('assets/svgs/fb.svg')}}" alt=""></a>
+                        <a href="https://youtube.com/c/fryscrypto"><img src="{{asset('assets/svgs/yt.svg')}}" alt=""></a>
                     </div>
                     <p style="margin-top:60px;color:#595959;font-size:12px">© Fry Foundation. All Rights Reserved.</p>
                 </div>

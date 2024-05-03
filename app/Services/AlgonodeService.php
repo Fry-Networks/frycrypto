@@ -13,7 +13,7 @@ class AlgonodeService
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => config('app.algonode_indexer_url'),
+            'base_uri' => 'https://mainnet-idx.algonode.cloud',
             'verify' => !App::environment('local')
         ]);
     }
